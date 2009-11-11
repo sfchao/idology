@@ -10,8 +10,10 @@ Spec::Runner.configure do |config|
 end
 
 module RequestSpecHelper
+  include Idology
+
   def test_subject
-    subject = API::IDVerification::Subject.new(
+    subject = Subject.new(
       {
         # basic info
         :firstName => 'Test',
@@ -40,41 +42,41 @@ module RequestSpecHelper
     questions = []
 
     # question 1 with answers
-    q = API::IDVerification::Question.new
+    q = Question.new
     q.prompt = "TEST - With which name are you associated?"
     q.type = "question.type1"
-    q.candidate_answers << API::IDVerification::Answer.new("JANNE")
-    q.candidate_answers << API::IDVerification::Answer.new("JESH")
-    q.candidate_answers << API::IDVerification::Answer.new("JAVAD")
-    q.candidate_answers << API::IDVerification::Answer.new("JOSEPH")
-    q.candidate_answers << API::IDVerification::Answer.new("JULES")
-    q.candidate_answers << API::IDVerification::Answer.new("None of the above")
+    q.candidate_answers << Answer.new("JANNE")
+    q.candidate_answers << Answer.new("JESH")
+    q.candidate_answers << Answer.new("JAVAD")
+    q.candidate_answers << Answer.new("JOSEPH")
+    q.candidate_answers << Answer.new("JULES")
+    q.candidate_answers << Answer.new("None of the above")
     q.chosen_answer = "JANNE"
     questions << q
 
     # question 2 with answers
-    q = API::IDVerification::Question.new
+    q = Question.new
     q.prompt = "TEST - Which number goes with your address on CARVER BLVD?"
     q.type = "question.type2"
-    q.candidate_answers << API::IDVerification::Answer.new("142")
-    q.candidate_answers << API::IDVerification::Answer.new("117")
-    q.candidate_answers << API::IDVerification::Answer.new("850")
-    q.candidate_answers << API::IDVerification::Answer.new("9101")
-    q.candidate_answers << API::IDVerification::Answer.new("504")
-    q.candidate_answers << API::IDVerification::Answer.new("None of the above")
+    q.candidate_answers << Answer.new("142")
+    q.candidate_answers << Answer.new("117")
+    q.candidate_answers << Answer.new("850")
+    q.candidate_answers << Answer.new("9101")
+    q.candidate_answers << Answer.new("504")
+    q.candidate_answers << Answer.new("None of the above")
     q.chosen_answer = "142"
     questions << q
 
     # question 3 with answers
-    q = API::IDVerification::Question.new
+    q = Question.new
     q.prompt = "TEST - Which cross street is near your address on HALBURTON RD?"
     q.type = "question.type3"
-    q.candidate_answers << API::IDVerification::Answer.new("MEADOW ST")
-    q.candidate_answers << API::IDVerification::Answer.new("BELVOIR BLVD")
-    q.candidate_answers << API::IDVerification::Answer.new("LINCOLN ST")
-    q.candidate_answers << API::IDVerification::Answer.new("LOCUST AVE")
-    q.candidate_answers << API::IDVerification::Answer.new("19TH ST")
-    q.candidate_answers << API::IDVerification::Answer.new("None of the above")
+    q.candidate_answers << Answer.new("MEADOW ST")
+    q.candidate_answers << Answer.new("BELVOIR BLVD")
+    q.candidate_answers << Answer.new("LINCOLN ST")
+    q.candidate_answers << Answer.new("LOCUST AVE")
+    q.candidate_answers << Answer.new("19TH ST")
+    q.candidate_answers << Answer.new("None of the above")
     q.chosen_answer = "MEADOW ST"
     questions << q
 
@@ -85,28 +87,28 @@ module RequestSpecHelper
     questions = []
 
     # question 1 with answers
-    q = API::IDVerification::Question.new
+    q = Question.new
     q.prompt = "TEST CHALLENGE - With which name are you associated?"
     q.type = "question.type1"
-    q.candidate_answers << API::IDVerification::Answer.new("JANNE")
-    q.candidate_answers << API::IDVerification::Answer.new("JESH")
-    q.candidate_answers << API::IDVerification::Answer.new("JAVAD")
-    q.candidate_answers << API::IDVerification::Answer.new("JOSEPH")
-    q.candidate_answers << API::IDVerification::Answer.new("JULES")
-    q.candidate_answers << API::IDVerification::Answer.new("None of the above")
+    q.candidate_answers << Answer.new("JANNE")
+    q.candidate_answers << Answer.new("JESH")
+    q.candidate_answers << Answer.new("JAVAD")
+    q.candidate_answers << Answer.new("JOSEPH")
+    q.candidate_answers << Answer.new("JULES")
+    q.candidate_answers << Answer.new("None of the above")
     q.chosen_answer = "JANNE"
     questions << q
 
     # question 2 with answers
-    q = API::IDVerification::Question.new
+    q = Question.new
     q.prompt = "TEST CHALLENGE - Which number goes with your address on CARVER BLVD?"
     q.type = "question.type2"
-    q.candidate_answers << API::IDVerification::Answer.new("142")
-    q.candidate_answers << API::IDVerification::Answer.new("117")
-    q.candidate_answers << API::IDVerification::Answer.new("850")
-    q.candidate_answers << API::IDVerification::Answer.new("9101")
-    q.candidate_answers << API::IDVerification::Answer.new("504")
-    q.candidate_answers << API::IDVerification::Answer.new("None of the above")
+    q.candidate_answers << Answer.new("142")
+    q.candidate_answers << Answer.new("117")
+    q.candidate_answers << Answer.new("850")
+    q.candidate_answers << Answer.new("9101")
+    q.candidate_answers << Answer.new("504")
+    q.candidate_answers << Answer.new("None of the above")
     q.chosen_answer = "142"
     questions << q
 
