@@ -15,7 +15,7 @@ curl -v --socks http://127.0.0.1:1080 -d username=test -d password=test -d first
 
 == Configuration
 
-The id_verification directory must contain a file called 'config.yml' using the following format:
+The lib directory must contain a file called 'config.yml' using the following format:
 
 # IDology API username and password
 username: your_api_username
@@ -25,4 +25,4 @@ It is recommended that you symlink this file to the directory after deploy for s
 
 == Tests
 
-To run the rspec tests, make sure you are in the lib/api/id_verification directory and type 'spec -cfs spec/' - these tests do not hit the API directly, they use fixtures.
+To run the rspec tests, simply type 'rake' - these tests do not hit the API directly, they use fixtures.
