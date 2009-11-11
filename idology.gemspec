@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{idology}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
@@ -22,14 +22,29 @@ Gem::Specification.new do |s|
      "README",
      "Rakefile",
      "VERSION",
-     "base.rb",
-     "lib/api_request.rb",
-     "lib/api_response.rb",
-     "lib/base.rb",
+     "idology.gemspec",
+     "lib/access_credentials.rb",
+     "lib/answer.rb",
      "lib/certs/cacert.pem",
      "lib/config.yml",
+     "lib/error.rb",
      "lib/idology.rb",
      "lib/log/.gitignore",
+     "lib/question.rb",
+     "lib/request/challenge_questions_request.rb",
+     "lib/request/challenge_verification_request.rb",
+     "lib/request/request.rb",
+     "lib/request/search_request.rb",
+     "lib/request/verification_questions_request.rb",
+     "lib/request/verification_request.rb",
+     "lib/response/challenge_questions_response.rb",
+     "lib/response/challenge_verification_response.rb",
+     "lib/response/response.rb",
+     "lib/response/search_response.rb",
+     "lib/response/verification_questions_response.rb",
+     "lib/response/verification_response.rb",
+     "lib/service.rb",
+     "lib/subject.rb",
      "spec/api_request_spec.rb",
      "spec/api_response_spec.rb",
      "spec/base_spec.rb",
