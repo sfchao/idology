@@ -1,6 +1,11 @@
 == Notes
 
-This code has come straight from a production Rails app. It will soon be a Rails plugin, but for now, I suggest putting it in the lib/ directory of your Rails project.
+This code has come straight from a production Rails app.
+
+It is available as a gem.
+
+Simply run:
+  gem install idology --source="http://gemcutter.org"
 
 You must have a valid IDology account to test or use this API library.
 
