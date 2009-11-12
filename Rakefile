@@ -8,7 +8,7 @@ begin
     gem.summary = %Q{Ruby interface to the IDology API}
     gem.description = %Q{Ruby interface to the IDology API}
     gem.email = "info@collectiveidea.com"
-    gem.homepage = "http://github.com/collectiveidea/ruby-idology"
+    gem.homepage = "http://github.com/collectiveidea/idology"
     gem.authors = ['Phil Ripperger', 'Daniel Morrison']
     gem.add_development_dependency "rspec"
     gem.add_dependency "hpricot"
