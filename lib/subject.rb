@@ -27,12 +27,12 @@ module Idology
     def locate
       response = self.api_service.locate(self)
 
-      self.idNumber = response.id_number
+      self.idNumber = response.id
       self.eligible_for_verification = response.eligible_for_verification?
 
       # we must track any qualifiers that come back
       if ! response.qualifiers.empty?
-        self.qualifiers = response.qualifiers.values.join("|")
+        self.qualifiers = response.qualifiers
       end
 
       return true
@@ -115,13 +115,13 @@ module Idology
     end
 
     def show_questions
-      # display the question.prompt and question.candidate_answers
+      # display the question.prompt and question.answer
       if ! self.verification_questions.empty?
         count = 0
         self.verification_questions.each do |question|
           puts count.to_s + " - " + question.prompt + ": \n"
 
-          question.candidate_answers.each do |answer|
+          question.answer.each do |answer|
             puts "   - " + answer.text + "\n"
           end
 
@@ -133,13 +133,13 @@ module Idology
     end
 
     def show_challenge_questions
-      # display the question.prompt and question.candidate_answers
+      # display the question.prompt and question.answer
       if ! self.challenge_questions.empty?
         count = 0
         self.challenge_questions.each do |question|
           puts count.to_s + " - " + question.prompt + ": \n"
 
-          question.candidate_answers.each do |answer|
+          question.answer.each do |answer|
             puts "   - " + answer.text + "\n"
           end
 

@@ -46,7 +46,6 @@ end
 describe Subject do
 
   include BaseSpecHelper
-  include ResponseSpecHelper
 
   it "should initialize with an API Service model" do
     subject = Subject.new
@@ -71,11 +70,11 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     # avoid a call to the API
-    sub.api_service.stub!(:locate).and_return(SearchResponse.new(mock_match_found_response))
+    sub.api_service.stub!(:locate).and_return(parse_response('match_found_response'))
     sub.locate.should be_true
 
     sub.eligible_for_verification.should be_true
-    sub.idNumber.should eql("5342889")
+    sub.idNumber.should eql(5342889)
   end
 
   it "should be able to find its verification questions" do
@@ -83,10 +82,10 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     # avoid a call to the API
-    sub.api_service.stub!(:locate).and_return(SearchResponse.new(mock_match_found_response))
+    sub.api_service.stub!(:locate).and_return(parse_response('match_found_response'))
     sub.locate.should be_true
 
-    sub.api_service.stub!(:get_questions).and_return(VerificationQuestionsResponse.new(mock_questions_response))
+    sub.api_service.stub!(:get_questions).and_return(parse_response('questions_response'))
     sub.get_questions.should be_true
 
     sub.verification_questions.should_not be_empty
@@ -97,7 +96,7 @@ describe Subject do
     sub = Subject.new
     sub.set_match.should eql("set to Spider Man")
 
-    sub.api_service.stub!(:submit_answers).and_return(VerificationResponse.new(mock_verification_all_answers_correct_response))
+    sub.api_service.stub!(:submit_answers).and_return(parse_response('all_answers_correct_response'))
     sub.submit_answers.should be_true
 
     # three correct answers should verify
@@ -109,7 +108,7 @@ describe Subject do
     sub = Subject.new
     sub.set_match.should eql("set to Spider Man")
 
-    sub.api_service.stub!(:submit_answers).and_return(VerificationResponse.new(mock_verification_2_answers_incorrect_response))
+    sub.api_service.stub!(:submit_answers).and_return(parse_response('2_answers_incorrect_response'))
     sub.submit_answers.should be_true
 
     # 2 incorrect answers gets a challenge
@@ -121,7 +120,7 @@ describe Subject do
     sub = Subject.new
     sub.set_match.should eql("set to Spider Man")
 
-    sub.api_service.stub!(:get_challenge_questions).and_return(ChallengeQuestionsResponse.new(mock_challenge_questions_response))
+    sub.api_service.stub!(:get_challenge_questions).and_return(parse_response('challenge_questions_response'))
     sub.get_challenge_questions.should be_true
 
     sub.challenge_questions.should_not be_empty
@@ -133,7 +132,7 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     sub.api_service.stub!(:submit_challenge_answers).and_return(
-      ChallengeVerificationResponse.new(mock_challenge_verification_all_answers_correct_response))
+      parse_response('all_answers_correct_challenge_response'))
     sub.submit_challenge_answers.should be_true
 
     # two correct answers should pass
@@ -220,40 +219,39 @@ end
 describe Service do
 
   include RequestSpecHelper
-  include ResponseSpecHelper
 
   before(:each) do
     @service = Service.new
   end
 
   it "should be able to find a subject" do
-    @service.stub!(:ssl_post).and_return(mock_match_found_response)
-    @service.locate(test_subject).should be_an_instance_of(SearchResponse)
-    @service.api_search_response.should be_an_instance_of(SearchResponse)
+    @service.stub!(:ssl_post).and_return(load_response('match_found_response'))
+    @service.locate(test_subject).should be_an_instance_of(Response)
+    @service.api_search_response.should be_an_instance_of(Response)
   end
 
   it "should be able to get the verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(mock_questions_response)
-    @service.get_questions(test_subject).should be_an_instance_of(VerificationQuestionsResponse)
-    @service.api_question_response.should be_an_instance_of(VerificationQuestionsResponse)
+    @service.stub!(:ssl_post).and_return(load_response('questions_response'))
+    @service.get_questions(test_subject).should be_an_instance_of(Response)
+    @service.api_question_response.should be_an_instance_of(Response)
   end
 
   it "should be able to submit the answers to verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(mock_verification_all_answers_correct_response)
-    @service.submit_answers(test_subject).should be_an_instance_of(VerificationResponse)
-    @service.api_verification_response.should be_an_instance_of(VerificationResponse)
+    @service.stub!(:ssl_post).and_return(load_response('all_answers_correct_response'))
+    @service.submit_answers(test_subject).should be_an_instance_of(Response)
+    @service.api_verification_response.should be_an_instance_of(Response)
   end
 
   it "should be able to get the challenge verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(mock_challenge_questions_response)
-    @service.get_challenge_questions(test_subject).should be_an_instance_of(ChallengeQuestionsResponse)
-    @service.api_challenge_question_response.should be_an_instance_of(ChallengeQuestionsResponse)
+    @service.stub!(:ssl_post).and_return(load_response('challenge_questions_response'))
+    @service.get_challenge_questions(test_subject).should be_an_instance_of(Response)
+    @service.api_challenge_question_response.should be_an_instance_of(Response)
   end
 
   it "should be able to submit the answers to challenge verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(mock_challenge_verification_all_answers_correct_response)
-    @service.submit_challenge_answers(test_subject).should be_an_instance_of(ChallengeVerificationResponse)
-    @service.api_challenge_verification_response.should be_an_instance_of(ChallengeVerificationResponse)
+    @service.stub!(:ssl_post).and_return(load_response('all_answers_correct_challenge_response'))
+    @service.submit_challenge_answers(test_subject).should be_an_instance_of(Response)
+    @service.api_challenge_verification_response.should be_an_instance_of(Response)
   end
 
   it "should be able to handle an Exception in locate() when calling the API" do

@@ -13,10 +13,8 @@ module Idology
       search_request.set_data(subject)
 
       # make the call
-      response = SearchResponse.new( ssl_post(search_request.url, search_request.data) )
-      self.api_search_response = response
-
-      return response
+      response = ssl_post(search_request.url, search_request.data)
+      self.api_search_response = Response.parse(response)
 
     rescue Exception => err
       log_error(err, 'locate()')
@@ -36,10 +34,8 @@ module Idology
       question_request.set_data(subject)
 
       # make the call
-      response = VerificationQuestionsResponse.new( ssl_post(question_request.url, question_request.data) )
-      self.api_question_response = response
-
-      return response
+      response = ssl_post(question_request.url, question_request.data)
+      self.api_question_response = Response.parse(response)
 
     rescue Exception => err
       log_error(err, 'get_questions()')
@@ -57,10 +53,8 @@ module Idology
       verification_request.set_data(subject)
 
       # make the call
-      response = VerificationResponse.new( ssl_post(verification_request.url, verification_request.data) )
-      self.api_verification_response = response
-
-      return response
+      response = ssl_post(verification_request.url, verification_request.data)
+      self.api_verification_response = Response.parse(response)
 
     rescue Exception => err
       log_error(err, 'submit_answers()')
@@ -79,10 +73,8 @@ module Idology
       question_request.set_data(subject)
 
       # make the call
-      response = ChallengeQuestionsResponse.new( ssl_post(question_request.url, question_request.data) )
-      self.api_challenge_question_response = response
-
-      return response
+      response = ssl_post(question_request.url, question_request.data)
+      self.api_challenge_question_response = Response.parse(response)
 
     rescue Exception => err
       log_error(err, 'get_challenge_questions()')
@@ -100,10 +92,8 @@ module Idology
       challenge_verification_request.set_data(subject)
 
       # make the call
-      response = ChallengeVerificationResponse.new( ssl_post(challenge_verification_request.url, challenge_verification_request.data) )
-      self.api_challenge_verification_response = response
-
-      return response
+      response = ssl_post(challenge_verification_request.url, challenge_verification_request.data)
+      self.api_challenge_verification_response = Response.parse(response)
 
     rescue Exception => err
       log_error(err, 'submit_challenge_answers()')
@@ -119,7 +109,7 @@ module Idology
       url = URI.parse(url)
 
       # create a Proxy class, incase a proxy is being used - will work even if proxy options are nil
-      connection = Net::HTTP.new(url.host, url.port)
+      connection = Net::HTTP::Proxy('127.0.0.1', 8080).new(url.host, url.port)
 
       connection.use_ssl = true
 

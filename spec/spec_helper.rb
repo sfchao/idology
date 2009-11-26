@@ -45,12 +45,13 @@ module RequestSpecHelper
     q = Question.new
     q.prompt = "TEST - With which name are you associated?"
     q.type = "question.type1"
-    q.candidate_answers << Answer.new("JANNE")
-    q.candidate_answers << Answer.new("JESH")
-    q.candidate_answers << Answer.new("JAVAD")
-    q.candidate_answers << Answer.new("JOSEPH")
-    q.candidate_answers << Answer.new("JULES")
-    q.candidate_answers << Answer.new("None of the above")
+    q.answers = []
+    q.answers << "JANNE"
+    q.answers << "JESH"
+    q.answers << "JAVAD"
+    q.answers << "JOSEPH"
+    q.answers << "JULES"
+    q.answers << "None of the above"
     q.chosen_answer = "JANNE"
     questions << q
 
@@ -58,12 +59,13 @@ module RequestSpecHelper
     q = Question.new
     q.prompt = "TEST - Which number goes with your address on CARVER BLVD?"
     q.type = "question.type2"
-    q.candidate_answers << Answer.new("142")
-    q.candidate_answers << Answer.new("117")
-    q.candidate_answers << Answer.new("850")
-    q.candidate_answers << Answer.new("9101")
-    q.candidate_answers << Answer.new("504")
-    q.candidate_answers << Answer.new("None of the above")
+    q.answers = []
+    q.answers << "142"
+    q.answers << "117"
+    q.answers << "850"
+    q.answers << "9101"
+    q.answers << "504"
+    q.answers << "None of the above"
     q.chosen_answer = "142"
     questions << q
 
@@ -71,12 +73,13 @@ module RequestSpecHelper
     q = Question.new
     q.prompt = "TEST - Which cross street is near your address on HALBURTON RD?"
     q.type = "question.type3"
-    q.candidate_answers << Answer.new("MEADOW ST")
-    q.candidate_answers << Answer.new("BELVOIR BLVD")
-    q.candidate_answers << Answer.new("LINCOLN ST")
-    q.candidate_answers << Answer.new("LOCUST AVE")
-    q.candidate_answers << Answer.new("19TH ST")
-    q.candidate_answers << Answer.new("None of the above")
+    q.answers = []
+    q.answers << "MEADOW ST"
+    q.answers << "BELVOIR BLVD"
+    q.answers << "LINCOLN ST"
+    q.answers << "LOCUST AVE"
+    q.answers << "19TH ST"
+    q.answers << "None of the above"
     q.chosen_answer = "MEADOW ST"
     questions << q
 
@@ -90,12 +93,13 @@ module RequestSpecHelper
     q = Question.new
     q.prompt = "TEST CHALLENGE - With which name are you associated?"
     q.type = "question.type1"
-    q.candidate_answers << Answer.new("JANNE")
-    q.candidate_answers << Answer.new("JESH")
-    q.candidate_answers << Answer.new("JAVAD")
-    q.candidate_answers << Answer.new("JOSEPH")
-    q.candidate_answers << Answer.new("JULES")
-    q.candidate_answers << Answer.new("None of the above")
+    q.answers = []
+    q.answers << "JANNE"
+    q.answers << "JESH"
+    q.answers << "JAVAD"
+    q.answers << "JOSEPH"
+    q.answers << "JULES"
+    q.answers << "None of the above"
     q.chosen_answer = "JANNE"
     questions << q
 
@@ -103,12 +107,13 @@ module RequestSpecHelper
     q = Question.new
     q.prompt = "TEST CHALLENGE - Which number goes with your address on CARVER BLVD?"
     q.type = "question.type2"
-    q.candidate_answers << Answer.new("142")
-    q.candidate_answers << Answer.new("117")
-    q.candidate_answers << Answer.new("850")
-    q.candidate_answers << Answer.new("9101")
-    q.candidate_answers << Answer.new("504")
-    q.candidate_answers << Answer.new("None of the above")
+    q.answers = []
+    q.answers << "142"
+    q.answers << "117"
+    q.answers << "850"
+    q.answers << "9101"
+    q.answers << "504"
+    q.answers << "None of the above"
     q.chosen_answer = "142"
     questions << q
 
@@ -117,90 +122,10 @@ module RequestSpecHelper
 
 end
 
-module ResponseSpecHelper
+def load_response(name)
+  File.read(File.dirname(__FILE__)+"/fixtures/#{name}.xml")
+end
 
-  def mock_error_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/error_response.xml' )
-  end
-
-  def mock_unknown_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/unknown_response.xml' )
-  end
-
-  def mock_no_match_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/no_match_response.xml' )
-  end
-
-  def mock_match_found_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_response.xml' )
-  end
-
-  def mock_match_found_single_address_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_single_address.xml' )
-  end
-
-  def mock_match_found_ssn_does_not_match_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_ssn_does_not_match.xml' )
-  end
-
-  def mock_match_found_ssn_invalid_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_ssn_invalid.xml' )
-  end
-
-  def mock_match_found_ssn_issued_prior_to_dob_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_ssn_issued_prior_to_dob.xml' )
-  end
-
-  def mock_match_found_ssn_unavailable_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_ssn_unavailable.xml' )
-  end
-
-  def mock_match_found_subject_deceased_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_subject_deceased.xml' )
-  end
-
-  def mock_match_found_thin_file_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/match_found_thin_file.xml' )
-  end
-
-  def mock_questions_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/questions_response.xml' )
-  end
-
-  def mock_verification_timeout_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/verification_timeout_response.xml' )
-  end
-
-  def mock_verification_all_answers_correct_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/all_answers_correct_response.xml' )
-  end
-
-  def mock_verification_1_answer_incorrect_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/1_answer_incorrect_response.xml' )
-  end
-
-  def mock_verification_2_answers_incorrect_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/2_answers_incorrect_response.xml' )
-  end
-
-  def mock_verification_3_answers_incorrect_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/3_answers_incorrect_response.xml' )
-  end
-
-  def mock_challenge_questions_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/challenge_questions_response.xml' )
-  end
-
-  def mock_challenge_verification_all_answers_correct_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/all_answers_correct_challenge_response.xml' )
-  end
-
-  def mock_challenge_verification_1_answer_incorrect_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/one_answer_incorrect_challenge_response.xml' )
-  end
-
-  def mock_challenge_verification_2_answers_incorrect_response
-    return File.read( File.dirname(__FILE__) + '/fixtures/two_answers_incorrect_challenge_response.xml' )
-  end
-
+def parse_response(name)
+  Response.parse(load_response(name))
 end
