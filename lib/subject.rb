@@ -10,18 +10,7 @@ module Idology
       self.verified = self.challenge = self.eligible_for_verification = false
       self.qualifiers = ""
 
-      if data
-        self.firstName = data[:firstName]
-        self.lastName = data[:lastName]
-        self.address = data[:address]
-        self.city = data[:city]
-        self.state = data[:state]
-        self.zip = data[:zip]
-        self.ssnLast4 = data[:ssnLast4]
-        self.dobMonth = data[:dobMonth]
-        self.dobYear = data[:dobYear]
-        self.userID = data[:userID]
-      end
+      data.each {|key, value| self.send(key) = value } if data
     end
 
     def locate
@@ -31,10 +20,8 @@ module Idology
       self.eligible_for_verification = response.eligible_for_verification?
 
       # we must track any qualifiers that come back
-      if ! response.qualifiers.empty?
-        self.qualifiers = response.qualifiers
-      end
-
+      self.qualifiers = response.qualifiers
+      
       return true
 
     rescue ServiceError

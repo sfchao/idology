@@ -1,5 +1,7 @@
 module Idology
   class Service
+    include HTTParty
+    
     attr_accessor :api_search_response, :api_question_response, :api_verification_response, :api_challenge_question_response, :api_challenge_verification_response
 
     def locate(subject)
