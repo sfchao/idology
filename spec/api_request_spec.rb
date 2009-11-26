@@ -5,10 +5,9 @@ include Idology
 describe Request do
 
   it "should initialize with credentials from config.yml" do
-    Request.stub!(:config).and_return(File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml")
-    req = Request.new
-    req.credentials.username.should eql("test_username")
-    req.credentials.password.should eql("test_password")
+    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
+    Idology[:username].should eql("test_username")
+    Idology[:password].should eql("test_password")
   end
 end
 
@@ -17,17 +16,12 @@ describe SearchRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Request.stub!(:config).and_return(File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml")
+    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @search_request = SearchRequest.new
   end
 
   it "should initialize with a url" do
     @search_request.url.should eql('https://web.idologylive.com/api/idiq.svc')
-  end
-
-  it "should initialize with a username and password" do
-    @search_request.credentials.username.should eql("test_username")
-    @search_request.credentials.password.should eql("test_password")
   end
 
   it "should be able to set its own data given a subject" do
@@ -53,17 +47,12 @@ describe VerificationQuestionsRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Request.stub!(:config).and_return(File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml")
+    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @questions_request = VerificationQuestionsRequest.new
   end
 
   it "should initialize with a url" do
     @questions_request.url.should eql('https://web.idologylive.com/api/idliveq.svc')
-  end
-
-  it "should initialize with a username and password" do
-    @questions_request.credentials.username.should eql("test_username")
-    @questions_request.credentials.password.should eql("test_password")
   end
 
   it "should be able to set its own data given a subject" do
@@ -81,17 +70,12 @@ describe VerificationRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Request.stub!(:config).and_return(File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml")
+    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @verification_request = VerificationRequest.new
   end
 
   it "should initiallize with a url" do
     @verification_request.url.should eql('https://web.idologylive.com/api/idliveq-answers.svc')
-  end
-
-  it "should initialize with a username and password" do
-    @verification_request.credentials.username.should eql("test_username")
-    @verification_request.credentials.password.should eql("test_password")
   end
 
   it "should be able to set its own data given a subject" do
@@ -117,17 +101,12 @@ describe ChallengeQuestionsRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Request.stub!(:config).and_return(File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml")
+    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @challenge_questions_request = ChallengeQuestionsRequest.new
   end
 
   it "should initialze with a url" do
     @challenge_questions_request.url.should eql('https://web.idologylive.com/api/idliveq-challenge.svc')
-  end
-
-  it "should initialize with a username and password" do
-    @challenge_questions_request.credentials.username.should eql("test_username")
-    @challenge_questions_request.credentials.password.should eql("test_password")
   end
 
   it "should be able to set its own data given a subject" do
@@ -145,17 +124,12 @@ describe ChallengeVerificationRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Request.stub!(:config).and_return(File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml")
+    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @challenge_verification_request = ChallengeVerificationRequest.new
   end
 
   it "should initiallize with a url" do
     @challenge_verification_request.url.should eql('https://web.idologylive.com/api/idliveq-challenge-answers.svc')
-  end
-
-  it "should initialize with a username and password" do
-    @challenge_verification_request.credentials.username.should eql("test_username")
-    @challenge_verification_request.credentials.password.should eql("test_password")
   end
 
   it "should be able to set its own data given a subject" do

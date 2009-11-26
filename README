@@ -20,13 +20,24 @@ curl -v --socks http://127.0.0.1:1080 -d username=test -d password=test -d first
 
 == Configuration
 
-The lib directory must contain a file called 'config.yml' using the following format:
+You can configure IDology with either a config.yml file, or by setting the values manually:
+
+Create a file called 'config.yml' using the following format:
 
 # IDology API username and password
 username: your_api_username
 password: your_api_password
 
+Specify the location to this file:
+
+Idology.load_config('../path/to/config.yml')
+
 It is recommended that you symlink this file to the directory after deploy for security reasons. This file is also required for development mode - just fill with dummy data.
+
+Or, set the username and password manually:
+
+Idology[:username] = 'user'
+Idology[:password] = 'pass'
 
 == Tests
 

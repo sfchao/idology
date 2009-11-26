@@ -10,8 +10,8 @@ module Idology
 
     def set_data(subject)
       data_to_send = {
-        :username => self.credentials.username,
-        :password => self.credentials.password,
+        :username => Idology[:username],
+        :password => Idology[:password],
         :idNumber => subject.idNumber
       }
 

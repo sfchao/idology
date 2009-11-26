@@ -35,14 +35,6 @@ end
 
 include Idology
 
-describe AccessCredentials do
-  it "should initialize with a username and password hash" do
-    credentials = AccessCredentials.new({:username => 'user', :password => 'pass'})
-    credentials.username.should eql('user')
-    credentials.password.should eql('pass')
-  end
-end
-
 describe Subject do
 
   include BaseSpecHelper

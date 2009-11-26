@@ -2,7 +2,7 @@ require 'net/http'
 require 'net/https'
 require 'logger'
 require 'happymapper'
-require File.dirname(__FILE__) + "/access_credentials"
+require 'yaml'
 require File.dirname(__FILE__) + "/boolean"
 require File.dirname(__FILE__) + "/error"
 require File.dirname(__FILE__) + "/iq_result"
@@ -19,3 +19,23 @@ require File.dirname(__FILE__) + "/request/challenge_verification_request"
 require File.dirname(__FILE__) + "/request/search_request"
 require File.dirname(__FILE__) + "/request/verification_questions_request"
 require File.dirname(__FILE__) + "/request/verification_request"
+
+module Idology
+  def self.config
+    @config ||= {}
+  end
+  
+  def self.[](key)
+    config[key]
+  end
+
+  def self.[]=(key, value)
+    config[key.to_sym] = value
+  end
+
+  def self.load_config(file = nil)
+    file ||= File.dirname(__FILE__) + "/../config.yml"
+    YAML::load(File.open(file)).each{|k, v| config[k.to_sym] = v }
+    config
+  end
+end
