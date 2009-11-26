@@ -9,11 +9,7 @@ module Idology
     end
 
     def set_data(subject)
-      data_to_send = {
-        :username => Idology[:username],
-        :password => Idology[:password],
-        :idNumber => subject.idNumber
-      }
+      data_to_send = super(subject).merge(:idNumber => subject.idNumber)
 
       # each question has a chosen_answer that must be sent along with the question type
       count = 1

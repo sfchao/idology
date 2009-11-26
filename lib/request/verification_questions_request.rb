@@ -8,13 +8,7 @@ module Idology
     end
 
     def set_data(subject)
-      data_to_send = {
-        :username => Idology[:username],
-        :password => Idology[:password],
-        :idNumber => subject.idNumber
-      }
-
-      self.data = data_to_send
+      self.data = super(subject).merge(:idNumber => subject.idNumber)
     end
   end
 end
