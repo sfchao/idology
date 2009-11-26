@@ -3,7 +3,7 @@ module Idology
 
     def initialize
       # corresponds to an IDology ExpectID IQ API call
-      self.url = 'https://web.idologylive.com/api/idliveq.svc'
+      self.url = '/idliveq.svc'
       super
     end
 

@@ -1,5 +1,6 @@
 module Idology
   class Request
+    
     attr_accessor :url, :data
     
     def set_data(subject)

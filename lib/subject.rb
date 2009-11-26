@@ -10,7 +10,7 @@ module Idology
       self.verified = self.challenge = self.eligible_for_verification = false
       self.qualifiers = ""
 
-      data.each {|key, value| self.send(key) = value } if data
+      data.each {|key, value| self.send "#{key}=", value } if data
     end
 
     def locate

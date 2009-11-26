@@ -2,6 +2,7 @@ require 'net/http'
 require 'net/https'
 require 'logger'
 require 'happymapper'
+require 'httparty'
 require 'yaml'
 require File.dirname(__FILE__) + "/boolean"
 require File.dirname(__FILE__) + "/error"

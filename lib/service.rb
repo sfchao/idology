@@ -1,8 +1,15 @@
 module Idology
   class Service
     include HTTParty
-    
+    base_uri 'https://web.idologylive.com/api'
     attr_accessor :api_search_response, :api_question_response, :api_verification_response, :api_challenge_question_response, :api_challenge_verification_response
+
+    def default_options
+      {
+        :pem => File.dirname(__FILE__) + '/certs/cacert.pem',
+        :parser => lambda{|r| Response.parse(r)}
+      }
+    end
 
     def locate(subject)
       # locate is an IDology ExpectID API call - only checks to see if a person is available in the system
@@ -15,7 +22,7 @@ module Idology
       search_request.set_data(subject)
 
       # make the call
-      response = ssl_post(search_request.url, search_request.data)
+      response = post(search_request.url, search_request.data)
       self.api_search_response = Response.parse(response)
 
     rescue Exception => err
@@ -36,7 +43,7 @@ module Idology
       question_request.set_data(subject)
 
       # make the call
-      response = ssl_post(question_request.url, question_request.data)
+      response = post(question_request.url, question_request.data)
       self.api_question_response = Response.parse(response)
 
     rescue Exception => err
@@ -55,7 +62,7 @@ module Idology
       verification_request.set_data(subject)
 
       # make the call
-      response = ssl_post(verification_request.url, verification_request.data)
+      response = post(verification_request.url, verification_request.data)
       self.api_verification_response = Response.parse(response)
 
     rescue Exception => err
@@ -75,7 +82,7 @@ module Idology
       question_request.set_data(subject)
 
       # make the call
-      response = ssl_post(question_request.url, question_request.data)
+      response = post(question_request.url, question_request.data)
       self.api_challenge_question_response = Response.parse(response)
 
     rescue Exception => err
@@ -94,7 +101,7 @@ module Idology
       challenge_verification_request.set_data(subject)
 
       # make the call
-      response = ssl_post(challenge_verification_request.url, challenge_verification_request.data)
+      response = post(challenge_verification_request.url, challenge_verification_request.data)
       self.api_challenge_verification_response = Response.parse(response)
 
     rescue Exception => err
@@ -106,36 +113,6 @@ module Idology
 
 
     private
-
-    def ssl_post(url, data, headers = {})
-      url = URI.parse(url)
-
-      # create a Proxy class, incase a proxy is being used - will work even if proxy options are nil
-      connection = Net::HTTP::Proxy('127.0.0.1', 8080).new(url.host, url.port)
-
-      connection.use_ssl = true
-
-      if ENV['RAILS_ENV'] == 'production'
-        # we want SSL enforced via certificates
-        connection.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        connection.ca_file = File.dirname(__FILE__) + "/certs/cacert.pem"
-      else
-        # do not enforce SSL in dev modes
-        connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-        # for debugging
-        connection.set_debug_output $stderr
-      end
-
-      connection.start { |https|
-        # setup the POST request
-        req = Net::HTTP::Post.new(url.path)
-        req.set_form_data(data, '&')
-
-        # do the POST and return the response body
-        return https.request(req).body
-      }
-    end
 
     def log_error(err, method_name)
       logger = Logger.new(File.dirname(__FILE__) + "/log/error.log")

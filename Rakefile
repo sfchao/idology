@@ -11,8 +11,8 @@ begin
     gem.homepage = "http://github.com/collectiveidea/idology"
     gem.authors = ['Phil Ripperger', 'Daniel Morrison']
     gem.add_development_dependency "rspec"
-    gem.add_dependency "hpricot"
     gem.add_dependency 'happymapper'
+    gem.add_dependency 'httparty'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

@@ -21,7 +21,7 @@ describe SearchRequest do
   end
 
   it "should initialize with a url" do
-    @search_request.url.should eql('https://web.idologylive.com/api/idiq.svc')
+    @search_request.url.should eql('/idiq.svc')
   end
 
   it "should be able to set its own data given a subject" do
@@ -52,7 +52,7 @@ describe VerificationQuestionsRequest do
   end
 
   it "should initialize with a url" do
-    @questions_request.url.should eql('https://web.idologylive.com/api/idliveq.svc')
+    @questions_request.url.should eql('/idliveq.svc')
   end
 
   it "should be able to set its own data given a subject" do
@@ -75,7 +75,7 @@ describe VerificationRequest do
   end
 
   it "should initiallize with a url" do
-    @verification_request.url.should eql('https://web.idologylive.com/api/idliveq-answers.svc')
+    @verification_request.url.should eql('/idliveq-answers.svc')
   end
 
   it "should be able to set its own data given a subject" do
@@ -106,7 +106,7 @@ describe ChallengeQuestionsRequest do
   end
 
   it "should initialze with a url" do
-    @challenge_questions_request.url.should eql('https://web.idologylive.com/api/idliveq-challenge.svc')
+    @challenge_questions_request.url.should eql('/idliveq-challenge.svc')
   end
 
   it "should be able to set its own data given a subject" do
@@ -129,7 +129,7 @@ describe ChallengeVerificationRequest do
   end
 
   it "should initiallize with a url" do
-    @challenge_verification_request.url.should eql('https://web.idologylive.com/api/idliveq-challenge-answers.svc')
+    @challenge_verification_request.url.should eql('/idliveq-challenge-answers.svc')
   end
 
   it "should be able to set its own data given a subject" do
