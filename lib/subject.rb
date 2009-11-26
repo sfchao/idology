@@ -24,7 +24,7 @@ module Idology
       
       return true
 
-    rescue ServiceError
+    rescue Exception
       return false
     end
 
@@ -34,7 +34,7 @@ module Idology
 
       return true
 
-    rescue ServiceError
+    rescue Exception
       return false
     end
 
@@ -45,7 +45,7 @@ module Idology
 
       return true
 
-    rescue ServiceError
+    rescue Exception
       return false
     end
 
@@ -55,7 +55,7 @@ module Idology
 
       return true
 
-    rescue ServiceError
+    rescue Exception
       return false
     end
 
@@ -65,7 +65,7 @@ module Idology
 
       return true
 
-    rescue ServiceError
+    rescue Exception
       return false
     end
 

@@ -24,12 +24,6 @@ module Idology
       # make the call
       response = post(search_request.url, search_request.data)
       self.api_search_response = Response.parse(response)
-
-    rescue Exception => err
-      log_error(err, 'locate()')
-
-      # raise a generic error for the caller
-      raise ServiceError
     end
 
     def get_questions(subject)
@@ -45,12 +39,6 @@ module Idology
       # make the call
       response = post(question_request.url, question_request.data)
       self.api_question_response = Response.parse(response)
-
-    rescue Exception => err
-      log_error(err, 'get_questions()')
-
-      # raise a generic error for the caller
-      raise ServiceError
     end
 
     def submit_answers(subject)
@@ -64,12 +52,6 @@ module Idology
       # make the call
       response = post(verification_request.url, verification_request.data)
       self.api_verification_response = Response.parse(response)
-
-    rescue Exception => err
-      log_error(err, 'submit_answers()')
-
-      # raise a generic error for the caller
-      raise ServiceError
     end
 
     def get_challenge_questions(subject)
@@ -84,12 +66,6 @@ module Idology
       # make the call
       response = post(question_request.url, question_request.data)
       self.api_challenge_question_response = Response.parse(response)
-
-    rescue Exception => err
-      log_error(err, 'get_challenge_questions()')
-
-      # raise a generic error for the caller
-      raise ServiceError
     end
 
     def submit_challenge_answers(subject)
@@ -103,21 +79,6 @@ module Idology
       # make the call
       response = post(challenge_verification_request.url, challenge_verification_request.data)
       self.api_challenge_verification_response = Response.parse(response)
-
-    rescue Exception => err
-      log_error(err, 'submit_challenge_answers()')
-
-      # raise a generic error for the caller
-      raise ServiceError
-    end
-
-
-    private
-
-    def log_error(err, method_name)
-      logger = Logger.new(File.dirname(__FILE__) + "/log/error.log")
-      logger.error "IDology API Error in Service.#{method_name} - " + err.message
-      logger.close
     end
   end
 end

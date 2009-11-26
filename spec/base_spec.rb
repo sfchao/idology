@@ -166,7 +166,7 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     # avoid a call to the API
-    sub.api_service.stub!(:locate).and_raise(ServiceError)
+    sub.api_service.stub!(:locate).and_raise(Exception)
     sub.locate.should be_false
   end
 
@@ -175,7 +175,7 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     # avoid a call to the API
-    sub.api_service.stub!(:get_questions).and_raise(ServiceError)
+    sub.api_service.stub!(:get_questions).and_raise(Exception)
     sub.get_questions.should be_false
   end
 
@@ -184,7 +184,7 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     # avoid a call to the API
-    sub.api_service.stub!(:submit_answers).and_raise(ServiceError)
+    sub.api_service.stub!(:submit_answers).and_raise(Exception)
     sub.submit_answers.should be_false
   end
 
@@ -193,7 +193,7 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     # avoid a call to the API
-    sub.api_service.stub!(:get_challenge_questions).and_raise(ServiceError)
+    sub.api_service.stub!(:get_challenge_questions).and_raise(Exception)
     sub.get_challenge_questions.should be_false
   end
 
@@ -202,7 +202,7 @@ describe Subject do
     sub.set_match.should eql("set to Spider Man")
 
     # avoid a call to the API
-    sub.api_service.stub!(:submit_challenge_answers).and_raise(ServiceError)
+    sub.api_service.stub!(:submit_challenge_answers).and_raise(Exception)
     sub.submit_challenge_answers.should be_false
   end
 
@@ -217,57 +217,32 @@ describe Service do
   end
 
   it "should be able to find a subject" do
-    @service.stub!(:ssl_post).and_return(load_response('match_found_response'))
+    @service.stub!(:post).and_return(load_response('match_found_response'))
     @service.locate(test_subject).should be_an_instance_of(Response)
     @service.api_search_response.should be_an_instance_of(Response)
   end
 
   it "should be able to get the verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(load_response('questions_response'))
+    @service.stub!(:post).and_return(load_response('questions_response'))
     @service.get_questions(test_subject).should be_an_instance_of(Response)
     @service.api_question_response.should be_an_instance_of(Response)
   end
 
   it "should be able to submit the answers to verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(load_response('all_answers_correct_response'))
+    @service.stub!(:post).and_return(load_response('all_answers_correct_response'))
     @service.submit_answers(test_subject).should be_an_instance_of(Response)
     @service.api_verification_response.should be_an_instance_of(Response)
   end
 
   it "should be able to get the challenge verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(load_response('challenge_questions_response'))
+    @service.stub!(:post).and_return(load_response('challenge_questions_response'))
     @service.get_challenge_questions(test_subject).should be_an_instance_of(Response)
     @service.api_challenge_question_response.should be_an_instance_of(Response)
   end
 
   it "should be able to submit the answers to challenge verification questions for a subject" do
-    @service.stub!(:ssl_post).and_return(load_response('all_answers_correct_challenge_response'))
+    @service.stub!(:post).and_return(load_response('all_answers_correct_challenge_response'))
     @service.submit_challenge_answers(test_subject).should be_an_instance_of(Response)
     @service.api_challenge_verification_response.should be_an_instance_of(Response)
-  end
-
-  it "should be able to handle an Exception in locate() when calling the API" do
-    @service.stub!(:ssl_post).and_raise(Exception)
-    lambda { @service.locate(test_subject) }.should raise_error(ServiceError)
-  end
-
-  it "should be able to handle an Exception in get_questions() when calling the API" do
-    @service.stub!(:ssl_post).and_raise(Exception)
-    lambda { @service.get_questions(test_subject) }.should raise_error(ServiceError)
-  end
-
-  it "should be able to handle an Exception in submit_answers() when calling the API" do
-    @service.stub!(:ssl_post).and_raise(Exception)
-    lambda { @service.submit_answers(test_subject) }.should raise_error(ServiceError)
-  end
-
-  it "should be able to handle an Exception in get_challenge_questions() when calling the API" do
-    @service.stub!(:ssl_post).and_raise(Exception)
-    lambda { @service.get_challenge_questions(test_subject) }.should raise_error(ServiceError)
-  end
-
-  it "should be able to handle an Exception in submit_challenge_answers() when calling the API" do
-    @service.stub!(:ssl_post).and_raise(Exception)
-    lambda { @service.submit_challenge_answers(test_subject) }.should raise_error(ServiceError)
   end
 end
