@@ -5,6 +5,7 @@ require 'happymapper'
 require 'httparty'
 require 'yaml'
 require File.dirname(__FILE__) + "/boolean"
+require File.dirname(__FILE__) + "/iq_challenge_result"
 require File.dirname(__FILE__) + "/iq_result"
 require File.dirname(__FILE__) + "/question"
 require File.dirname(__FILE__) + "/qualifier"

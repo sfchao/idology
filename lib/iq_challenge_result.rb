@@ -1,10 +1,10 @@
 module Idology
-  class IQResult
+  class IQChallengeResult
     include HappyMapper
-    tag 'idliveq-result'
+    tag 'idliveq-challenge-result'
     element :key, String
     element :message, String
-
+    
     def verified?
       case key
       when "error"
@@ -13,17 +13,14 @@ module Idology
       when "result.timeout"
         # timeouts fail right away
         return false
-      when "result.questions.0.incorrect"
+      when "result.challenge.0.incorrect"
         # all correct passes
         return true
-      when "result.questions.1.incorrect"
-        # one incorrect answer passes
-        return true
-      when "result.questions.2.incorrect"
+      when "result.challenge.1.incorrect"
+        # one incorrect answer fails
+        return false
+      when "result.challenge.2.incorrect"
         # two incorrect passes, but we will challenge
-        return true
-      when "result.questions.3.incorrect"
-        # three incorrect fails
         return false
       else
         # fail by default

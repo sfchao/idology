@@ -171,7 +171,7 @@ describe Response do
       v_response = parse_response('all_answers_correct_response')
       v_response.iq_result.key.should eql("result.questions.0.incorrect")
       v_response.iq_result.message.should eql("All Answers Correct")
-      v_response.verified?.should be_true
+      v_response.should be_verified
       v_response.challenge?.should be_false
     end
 
@@ -179,7 +179,7 @@ describe Response do
       v_response = parse_response('1_answer_incorrect_response')
       v_response.iq_result.key.should eql("result.questions.1.incorrect")
       v_response.iq_result.message.should eql("One Incorrect Answer")
-      v_response.verified?.should be_true
+      v_response.should be_verified
       v_response.challenge?.should be_false
     end
 
@@ -187,7 +187,7 @@ describe Response do
       v_response = parse_response('2_answers_incorrect_response')
       v_response.iq_result.key.should eql("result.questions.2.incorrect")
       v_response.iq_result.message.should eql("Two Incorrect Answers")
-      v_response.verified?.should be_true
+      v_response.should be_verified
       v_response.challenge?.should be_true
     end
 
@@ -195,7 +195,7 @@ describe Response do
       v_response = parse_response('3_answers_incorrect_response')
       v_response.iq_result.key.should eql("result.questions.3.incorrect")
       v_response.iq_result.message.should eql("Three Incorrect Answers")
-      v_response.verified?.should be_false
+      v_response.should_not be_verified
       v_response.challenge?.should be_false
     end
 
@@ -248,26 +248,25 @@ describe Response do
   end
 
   describe 'challenge verification response' do
-
     it "should be able to handle an all answers correct response" do
       v_response = parse_response('all_answers_correct_challenge_response')
-      v_response.iq_result.key.should eql("result.challenge.0.incorrect")
-      v_response.iq_result.message.should eql("result.challenge.0.incorrect")
-      v_response.verified?.should be_true
+      v_response.iq_challenge_result.key.should eql("result.challenge.0.incorrect")
+      v_response.iq_challenge_result.message.should eql("result.challenge.0.incorrect")
+      v_response.should be_verified
     end
 
     it "should be able to handle a 1 answer incorrect response" do
       v_response = parse_response('one_answer_incorrect_challenge_response')
-      v_response.iq_result.key.should eql("result.challenge.1.incorrect")
-      v_response.iq_result.message.should eql("result.challenge.1.incorrect")
-      v_response.verified?.should be_false
+      v_response.iq_challenge_result.key.should eql("result.challenge.1.incorrect")
+      v_response.iq_challenge_result.message.should eql("result.challenge.1.incorrect")
+      v_response.should_not be_verified
     end
 
     it "should be able to handle a 2 answers incorrect response" do
-      v_response = parse_response('2_answers_incorrect_response')
-      v_response.iq_result.key.should eql("result.challenge.2.incorrect")
-      v_response.iq_result.message.should eql("result.challenge.2.incorrect")
-      v_response.verified?.should be_false
+      v_response = parse_response('two_answers_incorrect_challenge_response')
+      v_response.iq_challenge_result.key.should eql("result.challenge.2.incorrect")
+      v_response.iq_challenge_result.message.should eql("result.challenge.2.incorrect")
+      v_response.should_not be_verified
     end
   end
   
