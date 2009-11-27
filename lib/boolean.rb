@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class Boolean
     def self.parse(string, options={})
       string == 'true'

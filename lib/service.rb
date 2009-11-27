@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class Service
     include HTTParty
     base_uri 'https://web.idologylive.com/api'

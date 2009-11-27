@@ -10,7 +10,7 @@ Spec::Runner.configure do |config|
 end
 
 module RequestSpecHelper
-  include Idology
+  include IDology
 
   def test_subject
     subject = Subject.new(

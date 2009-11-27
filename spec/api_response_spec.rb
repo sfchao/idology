@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-include Idology
+include IDology
 
 describe Response do
 

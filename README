@@ -30,14 +30,14 @@ password: your_api_password
 
 Specify the location to this file:
 
-Idology.load_config('../path/to/config.yml')
+IDology.load_config('../path/to/config.yml')
 
 It is recommended that you symlink this file to the directory after deploy for security reasons. This file is also required for development mode - just fill with dummy data.
 
 Or, set the username and password manually:
 
-Idology[:username] = 'user'
-Idology[:password] = 'pass'
+IDology[:username] = 'user'
+IDology[:password] = 'pass'
 
 == Tests
 

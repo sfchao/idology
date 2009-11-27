@@ -21,7 +21,7 @@ require File.dirname(__FILE__) + "/request/search_request"
 require File.dirname(__FILE__) + "/request/verification_questions_request"
 require File.dirname(__FILE__) + "/request/verification_request"
 
-module Idology
+module IDology
   def self.config
     @config ||= {}
   end

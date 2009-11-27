@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class IQChallengeResult
     include HappyMapper
     tag 'idliveq-challenge-result'

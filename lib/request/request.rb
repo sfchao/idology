@@ -1,12 +1,12 @@
-module Idology
+module IDology
   class Request
     
     attr_accessor :url, :data
     
     def set_data(subject)
       self.data = {
-        :username => Idology[:username],
-        :password => Idology[:password],
+        :username => IDology[:username],
+        :password => IDology[:password],
       }
     end
   end

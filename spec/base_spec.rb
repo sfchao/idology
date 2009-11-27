@@ -33,7 +33,7 @@ module BaseSpecHelper
 
 end
 
-include Idology
+include IDology
 
 describe Subject do
 

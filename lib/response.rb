@@ -1,20 +1,20 @@
-module Idology
+module IDology
   class Response
     include HappyMapper
     
     element :id, Integer, :tag => 'id-number'
     element :failed, String
     element :error, String
-    element :iq_indicated, Idology::Boolean, :tag => 'idliveq-indicated', :parser => :parse
-    element :eligible_for_questions, Idology::Boolean, :tag => 'eligible-for-questions', :parser => :parse
+    element :iq_indicated, IDology::Boolean, :tag => 'idliveq-indicated', :parser => :parse
+    element :eligible_for_questions, IDology::Boolean, :tag => 'eligible-for-questions', :parser => :parse
     
-    has_one :result, Idology::Result
-    has_one :summary_result, Idology::SummaryResult
-    has_one :iq_result, Idology::IQResult
-    has_one :iq_challenge_result, Idology::IQChallengeResult
-    # has_one :iq_error, Idology::IQError
-    has_many :qualifiers, Idology::Qualifier
-    has_many :questions, Idology::Question
+    has_one :result, IDology::Result
+    has_one :summary_result, IDology::SummaryResult
+    has_one :iq_result, IDology::IQResult
+    has_one :iq_challenge_result, IDology::IQChallengeResult
+    # has_one :iq_error, IDology::IQError
+    has_many :qualifiers, IDology::Qualifier
+    has_many :questions, IDology::Question
     
     def eligible_for_verification?
       result.match? && eligible_for_questions && !flagged_qualifier?

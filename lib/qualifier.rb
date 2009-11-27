@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class Qualifier
     include HappyMapper
     

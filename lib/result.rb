@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class Result
     include HappyMapper
     tag 'results'

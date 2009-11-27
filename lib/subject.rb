@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class Subject
     attr_accessor :firstName, :lastName, :address, :city, :state, :zip, :ssnLast4, :dobMonth, :dobYear, :userID
     attr_accessor :idNumber, :api_service, :qualifiers

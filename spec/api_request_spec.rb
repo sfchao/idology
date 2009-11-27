@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-include Idology
+include IDology
 
 describe Request do
 
   it "should initialize with credentials from config.yml" do
-    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
-    Idology[:username].should eql("test_username")
-    Idology[:password].should eql("test_password")
+    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
+    IDology[:username].should eql("test_username")
+    IDology[:password].should eql("test_password")
   end
 end
 
@@ -16,7 +16,7 @@ describe SearchRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
+    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @search_request = SearchRequest.new
   end
 
@@ -47,7 +47,7 @@ describe VerificationQuestionsRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
+    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @questions_request = VerificationQuestionsRequest.new
   end
 
@@ -70,7 +70,7 @@ describe VerificationRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
+    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @verification_request = VerificationRequest.new
   end
 
@@ -101,7 +101,7 @@ describe ChallengeQuestionsRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
+    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @challenge_questions_request = ChallengeQuestionsRequest.new
   end
 
@@ -124,7 +124,7 @@ describe ChallengeVerificationRequest do
   include RequestSpecHelper
 
   before(:each) do
-    Idology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
+    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     @challenge_verification_request = ChallengeVerificationRequest.new
   end
 

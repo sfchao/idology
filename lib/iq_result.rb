@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class IQResult
     include HappyMapper
     tag 'idliveq-result'

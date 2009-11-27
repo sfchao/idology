@@ -1,4 +1,4 @@
-module Idology
+module IDology
   class VerificationRequest < Request
 
     def initialize

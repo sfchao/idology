@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Idology
+include IDology
 
 describe Response do
   
