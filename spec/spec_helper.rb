@@ -4,6 +4,7 @@ require 'rubygems'
 require 'idology'
 require 'spec'
 require 'spec/autorun'
+require 'idology_test_helper'
 
 Spec::Runner.configure do |config|
 
@@ -119,13 +120,14 @@ module RequestSpecHelper
 
     return questions
   end
-
 end
 
+include IDology::TestHelper
+
 def load_response(name)
-  File.read(File.dirname(__FILE__)+"/fixtures/#{name}.xml")
+  load_idology_response(name)
 end
 
 def parse_response(name)
-  Response.parse(load_response(name))
+  parse_idology_response(name)
 end
