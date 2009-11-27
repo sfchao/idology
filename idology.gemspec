@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{idology}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
-  s.date = %q{2009-11-11}
+  s.date = %q{2009-11-27}
   s.description = %q{Ruby interface to the IDology API}
   s.email = %q{info@collectiveidea.com}
   s.extra_rdoc_files = [
@@ -23,13 +23,13 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "idology.gemspec",
-     "lib/access_credentials.rb",
-     "lib/answer.rb",
+     "lib/boolean.rb",
      "lib/certs/cacert.pem",
-     "lib/config.yml",
-     "lib/error.rb",
      "lib/idology.rb",
+     "lib/iq_challenge_result.rb",
+     "lib/iq_result.rb",
      "lib/log/.gitignore",
+     "lib/qualifier.rb",
      "lib/question.rb",
      "lib/request/challenge_questions_request.rb",
      "lib/request/challenge_verification_request.rb",
@@ -37,14 +37,11 @@ Gem::Specification.new do |s|
      "lib/request/search_request.rb",
      "lib/request/verification_questions_request.rb",
      "lib/request/verification_request.rb",
-     "lib/response/challenge_questions_response.rb",
-     "lib/response/challenge_verification_response.rb",
-     "lib/response/response.rb",
-     "lib/response/search_response.rb",
-     "lib/response/verification_questions_response.rb",
-     "lib/response/verification_response.rb",
+     "lib/response.rb",
+     "lib/result.rb",
      "lib/service.rb",
      "lib/subject.rb",
+     "lib/summary_result.rb",
      "spec/api_request_spec.rb",
      "spec/api_response_spec.rb",
      "spec/base_spec.rb",
@@ -70,9 +67,11 @@ Gem::Specification.new do |s|
      "spec/fixtures/two_answers_incorrect_challenge_response.xml",
      "spec/fixtures/unknown_response.xml",
      "spec/fixtures/verification_timeout_response.xml",
+     "spec/response_spec.rb",
+     "spec/responses/no_address.xml",
      "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/collectiveidea/ruby-idology}
+  s.homepage = %q{http://github.com/collectiveidea/idology}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
@@ -81,6 +80,7 @@ Gem::Specification.new do |s|
     "spec/api_request_spec.rb",
      "spec/api_response_spec.rb",
      "spec/base_spec.rb",
+     "spec/response_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -90,13 +90,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_runtime_dependency(%q<hpricot>, [">= 0"])
+      s.add_runtime_dependency(%q<happymapper>, [">= 0"])
+      s.add_runtime_dependency(%q<httparty>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<hpricot>, [">= 0"])
+      s.add_dependency(%q<happymapper>, [">= 0"])
+      s.add_dependency(%q<httparty>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<hpricot>, [">= 0"])
+    s.add_dependency(%q<happymapper>, [">= 0"])
+    s.add_dependency(%q<httparty>, [">= 0"])
   end
 end
