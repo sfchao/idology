@@ -2,14 +2,10 @@ module IDology
   class Service
     include HTTParty
     base_uri 'https://web.idologylive.com/api'
-    attr_accessor :api_search_response, :api_question_response, :api_verification_response, :api_challenge_question_response, :api_challenge_verification_response
-
-    def default_options
-      {
-        :pem => File.dirname(__FILE__) + '/certs/cacert.pem',
-        :parser => lambda{|r| Response.parse(r)}
-      }
-    end
+    # pem File.read(File.dirname(__FILE__) + '/certs/cacert.pem')
+    parser lambda{|r| IDology::Response.parse(r)}
+    
+    attr_accessor :api_search_response, :api_question_response, :api_verification_response, :api_challenge_question_response, :api_challenge_verification_response  
 
     def locate(subject)
       # locate is an IDology ExpectID API call - only checks to see if a person is available in the system
@@ -22,8 +18,8 @@ module IDology
       search_request.set_data(subject)
 
       # make the call
-      response = post(search_request.url, search_request.data)
-      self.api_search_response = Response.parse(response)
+      response = Service.post(search_request.url, search_request.data)
+      self.api_search_response = response
     end
 
     def get_questions(subject)
@@ -37,8 +33,8 @@ module IDology
       question_request.set_data(subject)
 
       # make the call
-      response = post(question_request.url, question_request.data)
-      self.api_question_response = Response.parse(response)
+      response = Service.post(question_request.url, question_request.data)
+      self.api_question_response = response
     end
 
     def submit_answers(subject)
@@ -50,8 +46,8 @@ module IDology
       verification_request.set_data(subject)
 
       # make the call
-      response = post(verification_request.url, verification_request.data)
-      self.api_verification_response = Response.parse(response)
+      response = Service.post(verification_request.url, verification_request.data)
+      self.api_verification_response = response
     end
 
     def get_challenge_questions(subject)
@@ -64,8 +60,8 @@ module IDology
       question_request.set_data(subject)
 
       # make the call
-      response = post(question_request.url, question_request.data)
-      self.api_challenge_question_response = Response.parse(response)
+      response = Service.post(question_request.url, question_request.data)
+      self.api_challenge_question_response = response
     end
 
     def submit_challenge_answers(subject)
@@ -77,8 +73,8 @@ module IDology
       challenge_verification_request.set_data(subject)
 
       # make the call
-      response = post(challenge_verification_request.url, challenge_verification_request.data)
-      self.api_challenge_verification_response = Response.parse(response)
+      response = Service.post(challenge_verification_request.url, challenge_verification_request.data)
+      self.api_challenge_verification_response = response
     end
   end
 end
