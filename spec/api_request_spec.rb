@@ -4,10 +4,29 @@ include IDology
 
 describe Request do
 
-  it "should initialize with credentials from config.yml" do
+  it "should set data with credentials from config.yml" do
     IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
     IDology[:username].should eql("test_username")
     IDology[:password].should eql("test_password")
+    
+    request = Request.new
+    request.set_data(Subject.new)
+    request.data[:username].should eql("test_username")
+    request.data[:password].should eql("test_password")
+  end
+  
+  it "should not set data if username is not set" do
+    IDology[:username] = ''
+    IDology[:password] = 'something'
+    request = Request.new
+    lambda { request.set_data(Subject.new) }.should raise_error
+  end
+  
+  it "should not set data if password is not set" do
+    IDology[:username] = 'something'
+    IDology[:password] = ''
+    request = Request.new
+    lambda { request.set_data(Subject.new) }.should raise_error
   end
 end
 
