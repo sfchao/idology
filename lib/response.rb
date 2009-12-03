@@ -17,7 +17,7 @@ module IDology
     has_many :questions, IDology::Question
     
     def eligible_for_verification?
-      result.match? && eligible_for_questions && !flagged_qualifier?
+      result && result.match? && eligible_for_questions && !flagged_qualifier?
     end
     
     def verified?
