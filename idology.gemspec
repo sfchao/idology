@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{idology}
-  s.version = "0.3.0"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
-  s.date = %q{2009-11-27}
+  s.date = %q{2009-12-03}
   s.description = %q{Ruby interface to the IDology API}
   s.email = %q{info@collectiveidea.com}
   s.extra_rdoc_files = [
