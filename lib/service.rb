@@ -18,7 +18,7 @@ module IDology
       search_request.set_data(subject)
 
       # make the call
-      response = Service.post(search_request.url, :query => search_request.data)
+      response = Service.post(search_request.url, :body => search_request.data)
       self.api_search_response = response
     end
 
@@ -33,7 +33,7 @@ module IDology
       question_request.set_data(subject)
 
       # make the call
-      response = Service.post(question_request.url, :query => question_request.data)
+      response = Service.post(question_request.url, :body => question_request.data)
       self.api_question_response = response
     end
 
@@ -46,7 +46,7 @@ module IDology
       verification_request.set_data(subject)
 
       # make the call
-      response = Service.post(verification_request.url, :query => verification_request.data)
+      response = Service.post(verification_request.url, :body => verification_request.data)
       self.api_verification_response = response
     end
 
@@ -60,7 +60,7 @@ module IDology
       question_request.set_data(subject)
 
       # make the call
-      response = Service.post(question_request.url, :query => question_request.data)
+      response = Service.post(question_request.url, :body => question_request.data)
       self.api_challenge_question_response = response
     end
 
@@ -73,7 +73,7 @@ module IDology
       challenge_verification_request.set_data(subject)
 
       # make the call
-      response = Service.post(challenge_verification_request.url, :query => challenge_verification_request.data)
+      response = Service.post(challenge_verification_request.url, :body => challenge_verification_request.data)
       self.api_challenge_verification_response = response
     end
   end
