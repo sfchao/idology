@@ -5,20 +5,7 @@ module IDology
     # pem File.read(File.dirname(__FILE__) + '/certs/cacert.pem')
     parser lambda{|r| IDology::Response.parse(r)}
     
-    attr_accessor :api_verification_response, :api_challenge_question_response, :api_challenge_verification_response  
-
-    def submit_answers(subject)
-      # submit questions / answers to the IDology ExpectID IQ API
-
-      verification_request = VerificationRequest.new
-
-      # assemble the data for POST
-      verification_request.set_data(subject)
-
-      # make the call
-      response = Service.post(verification_request.url, :body => verification_request.data)
-      self.api_verification_response = response
-    end
+    attr_accessor :api_challenge_question_response, :api_challenge_verification_response  
 
     def get_challenge_questions(subject)
       # get_challenge_questions is an IDology ExpectID Challenge API call - given a valid idNumber from an ExpectID IQ question

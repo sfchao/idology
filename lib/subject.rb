@@ -10,7 +10,8 @@ module IDology
 
     Paths = {
       :search => '/idiq.svc',
-      :questions => '/idliveq.svc'
+      :questions => '/idliveq.svc',
+      :answers => '/idliveq-answers.svc'
     }
 
     attr_accessor *SearchAttributes
@@ -41,14 +42,18 @@ module IDology
     end
 
     def submit_answers
-      response = self.api_service.submit_answers(self)
+      answers = {}
+      verification_questions.each_with_index do |question, index|
+        answers["question#{index}Type"] = question.type 
+        answers["question#{index}Answer"] = question.chosen_answer
+      end
+      
+      response = post(:answers, [], answers)
+      
       self.verified = response.verified?
       self.challenge = response.challenge?
 
-      return true
-
-    rescue Exception
-      return false
+      response
     end
 
     def get_challenge_questions
@@ -73,15 +78,15 @@ module IDology
 
   private
 
-    def post(url, attributes = [])
-      params = {:username => IDology[:username],
-        :password => IDology[:password]}
+    def post(url, attributes = [], data = {})
+      data.merge!(:username => IDology[:username],
+        :password => IDology[:password])
       
       (attributes | CommonAttributes).each do |key|
-        params[key] = self.send(key) unless self.send(key).blank?
+        data[key] = self.send(key) unless self.send(key).blank?
       end
     
-      response = Subject.post(Paths[url], :body => params)
+      response = Subject.post(Paths[url], :body => data)
     
       copy_from_response response
       response

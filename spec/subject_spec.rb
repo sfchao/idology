@@ -59,6 +59,30 @@ describe Subject do
     
     it_should_behave_like "Any Request"
     
+    it "should set the verification questions" do
+      q = @subject.verification_questions.detect{|q| q.prompt == 'With which name are you associated?'}
+      q.should_not be_blank
+      q.answers.should == ['ENDO', 'ENRIQUEZ', 'EATON', 'ECHOLS', 'EPPS', 'None of the above']
+    end
   end
   
+  describe 'submit_answers' do
+    before do
+      fake_idology(:questions, 'questions_response')      
+      fake_idology(:answers, 'all_answers_correct_response')
+      @subject = Subject.new
+      @subject.get_questions
+      @result = @subject.submit_answers
+    end
+    
+    it_should_behave_like "Any Request"
+    
+    it "should set the verified flag" do
+      @subject.verified.should be_true
+    end
+    
+    it "should set the challenge flag" do
+      @subject.verified.should be_true
+    end
+  end
 end

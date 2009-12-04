@@ -30,37 +30,6 @@ describe Request do
   end
 end
 
-describe VerificationRequest do
-
-  include RequestSpecHelper
-
-  before(:each) do
-    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
-    @verification_request = VerificationRequest.new
-  end
-
-  it "should initiallize with a url" do
-    @verification_request.url.should eql('/idliveq-answers.svc')
-  end
-
-  it "should be able to set its own data given a subject" do
-    @verification_request.data.should be_nil
-    @verification_request.set_data(test_subject)
-    @verification_request.data[:username].should eql("test_username")
-    @verification_request.data[:password].should eql("test_password")
-    @verification_request.data[:idNumber].should eql(12345)
-
-    # the question / answer data
-    @verification_request.data[:question1Type] = "question.type1"
-    @verification_request.data[:question1Answer] = "JANNE"
-    @verification_request.data[:question2Type] = "question.type2"
-    @verification_request.data[:question2Answer] = "142"
-    @verification_request.data[:question3Type] = "question.type3"
-    @verification_request.data[:question3Answer] = "MEADOW ST"
-  end
-
-end
-
 describe ChallengeQuestionsRequest do
 
   include RequestSpecHelper
