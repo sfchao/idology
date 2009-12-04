@@ -12,21 +12,19 @@ module IDology
       :search => '/idiq.svc',
       :questions => '/idliveq.svc',
       :answers => '/idliveq-answers.svc',
-      :challenge_questions => '/idliveq-challenge.svc'
+      :challenge_questions => '/idliveq-challenge.svc',
+      :challenge_answers => '/idliveq-challenge-answers.svc'
     }
 
     attr_accessor *SearchAttributes
     attr_accessor *CommonAttributes
-    attr_accessor :api_service, :qualifiers
-    attr_accessor :verification_questions, :eligible_for_verification, :verified, :challenge
-    attr_accessor :challenge_questions
+    attr_accessor :qualifiers, :verification_questions, :eligible_for_verification, :verified, :challenge, :challenge_questions
 
-    def initialize(data = nil)
-      self.api_service = Service.new
+    def initialize(data = {})
       self.verified = self.challenge = self.eligible_for_verification = false
       self.qualifiers = ""
 
-      data.each {|key, value| self.send "#{key}=", value } if data
+      data.each {|key, value| self.send "#{key}=", value }
     end
 
     def locate
@@ -67,18 +65,23 @@ module IDology
     end
 
     def submit_challenge_answers
-      response = self.api_service.submit_challenge_answers(self)
+      answers = {}
+      challenge_questions.each_with_index do |question, index|
+        answers["question#{index}Type"] = question.type 
+        answers["question#{index}Answer"] = question.chosen_answer
+      end
+
+      response = post(:challenge_answers, [], answers)
       self.verified = response.verified?
-
-      return true
-
-    rescue Exception
-      return false
+      response
     end
 
   private
 
     def post(url, attributes = [], data = {})
+      raise "IDology username is not set." if IDology[:username].blank?
+      raise "IDology password is not set." if IDology[:password].blank?
+      
       data.merge!(:username => IDology[:username],
         :password => IDology[:password])
       

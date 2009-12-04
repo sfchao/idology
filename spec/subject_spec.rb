@@ -26,6 +26,15 @@ describe Subject do
   end
   
   describe "locate" do
+    it "should error if username is not set" do
+      IDology[:username] = ''
+      lambda { Subject.new.locate }.should raise_error
+    end
+
+    it "should error if password is not set" do
+      IDology[:password] = ''
+      lambda { Subject.new.locate }.should raise_error
+    end
     
     describe "with a match" do
       before do
@@ -82,7 +91,7 @@ describe Subject do
     end
     
     it "should set the challenge flag" do
-      @subject.verified.should be_true
+      @subject.challenge.should be_false
     end
   end
   
@@ -99,6 +108,22 @@ describe Subject do
       q = @subject.challenge_questions.detect{|q| q.prompt == 'Which street goes with your address number 840?'}
       q.should_not be_blank
       q.answers.should == ['ROBBIE VW', 'LUBICH DR', 'VICTOR WAY', 'VARSITY CT', 'VAQUERO DR', 'None of the above']
+    end
+  end
+  
+  describe 'submit_challenge_answers' do
+    before do
+      fake_idology(:challenge_questions, 'questions_response')      
+      fake_idology(:challenge_answers, 'all_answers_correct_response')
+      @subject = Subject.new
+      @subject.get_challenge_questions
+      @result = @subject.submit_challenge_answers
+    end
+    
+    it_should_behave_like "Any Request"
+    
+    it "should set the verified flag" do
+      @subject.verified.should be_true
     end
   end
 end

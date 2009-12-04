@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "idology"
     gem.summary = %Q{Ruby interface to the IDology API}
-    gem.description = %Q{Ruby interface to the IDology API}
+    gem.description = %Q{Ruby interface to the IDology API. Verify people's identities easily!}
     gem.email = "info@collectiveidea.com"
     gem.homepage = "http://github.com/collectiveidea/idology"
     gem.authors = ['Phil Ripperger', 'Daniel Morrison']
