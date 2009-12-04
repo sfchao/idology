@@ -2,6 +2,21 @@ require 'spec_helper'
 
 include IDology
 
+share_examples_for "Any Request" do
+  it "should be able to locate a person" do
+    @result.should_not be_false
+  end
+
+  it "should set the ID" do
+    @subject.idNumber.should == 5342889
+  end
+
+  it "should set any qualifiers" do
+    expected = %w(resultcode.dob.does.not.match resultcode.address.does.not.match)
+    @subject.qualifiers.map(&:key).to_set.should == expected.to_set
+  end
+end
+
 describe Subject do
   
   before do
@@ -16,26 +31,13 @@ describe Subject do
       before do
         fake_idology(:search, 'match_found_response')
         @subject = Subject.new
+        @result = @subject.locate
       end
     
-      it "should be able to locate a person" do
-        @subject.locate.should_not be_false
-      end
-    
-      it "should set the ID" do
-        @subject.locate
-        @subject.idNumber.should == 5342889
-      end
+      it_should_behave_like "Any Request"
       
       it "should know if the subject is eligible for verification questions" do
-        @subject.locate
         @subject.eligible_for_verification.should be_true
-      end
-    
-      it "should set any qualifiers" do
-        @subject.locate
-        expected = %w(resultcode.dob.does.not.match resultcode.address.does.not.match)
-        @subject.qualifiers.map(&:key).to_set.should == expected.to_set
       end
     end
     
@@ -45,6 +47,17 @@ describe Subject do
       subject = Subject.new
       subject.locate.should be_false      
     end
+    
+  end
+  
+  describe 'get_questions' do
+    before do
+      fake_idology(:questions, 'questions_response')
+      @subject = Subject.new
+      @result = @subject.get_questions
+    end
+    
+    it_should_behave_like "Any Request"
     
   end
   

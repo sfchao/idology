@@ -9,7 +9,8 @@ module IDology
     CommonAttributes = [:idNumber, :uid]
 
     Paths = {
-      :search => '/idiq.svc'
+      :search => '/idiq.svc',
+      :questions => '/idliveq.svc'
     }
 
     attr_accessor *SearchAttributes
@@ -29,23 +30,14 @@ module IDology
     def locate
       response = post(:search, SearchAttributes)
       
-      self.idNumber = response.id
-      self.eligible_for_verification = response.eligible_for_verification?
-
-      # we must track any qualifiers that come back
-      self.qualifiers = response.qualifiers
-
-      response.result && response.result.match?
+      response.result && response.result.match? ? response : false
     end
 
     def get_questions
-      response = self.api_service.get_questions(self)
-      self.verification_questions = response.questions
+      # get_questions is an IDology ExpectID IQ API call - which given a valid idNumber from an ExpectID API call
+      # should return questions that can be asked to verify the ID of the person in question
 
-      return true
-
-    rescue Exception
-      return false
+      post(:questions)
     end
 
     def submit_answers
@@ -81,16 +73,27 @@ module IDology
 
   private
 
-  def post(url, attributes)
-    params = {:username => IDology[:username],
-      :password => IDology[:password]}
+    def post(url, attributes = [])
+      params = {:username => IDology[:username],
+        :password => IDology[:password]}
       
-    (attributes | CommonAttributes).each do |key|
-      params[key] = self.send(key) unless self.send(key).blank?
-    end
+      (attributes | CommonAttributes).each do |key|
+        params[key] = self.send(key) unless self.send(key).blank?
+      end
     
-    Subject.post(Paths[url], :body => params)
-  end
+      response = Subject.post(Paths[url], :body => params)
+    
+      copy_from_response response
+      response
+    end
 
+    def copy_from_response(response)
+      self.idNumber = response.id
+      self.eligible_for_verification = response.eligible_for_verification?
+
+      # we must track any qualifiers that come back
+      self.qualifiers = response.qualifiers
+      self.verification_questions = response.questions
+    end
   end
 end

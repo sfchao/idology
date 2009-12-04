@@ -17,7 +17,6 @@ require File.dirname(__FILE__) + "/response"
 require File.dirname(__FILE__) + "/request/request"
 require File.dirname(__FILE__) + "/request/challenge_questions_request"
 require File.dirname(__FILE__) + "/request/challenge_verification_request"
-require File.dirname(__FILE__) + "/request/verification_questions_request"
 require File.dirname(__FILE__) + "/request/verification_request"
 
 module IDology
