@@ -26,10 +26,6 @@ module IDology
       data.each {|key, value| self.send "#{key}=", value } if data
     end
 
-    def id
-      idNumber
-    end
-
     def locate
       response = post(:search, SearchAttributes)
       

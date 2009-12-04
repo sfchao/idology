@@ -24,7 +24,7 @@ describe Subject do
     
       it "should set the ID" do
         @subject.locate
-        @subject.id.should == 5342889
+        @subject.idNumber.should == 5342889
       end
       
       it "should know if the subject is eligible for verification questions" do
