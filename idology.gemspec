@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{idology}
-  s.version = "0.4.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
-  s.date = %q{2009-12-03}
-  s.description = %q{Ruby interface to the IDology API}
+  s.date = %q{2009-12-04}
+  s.description = %q{Ruby interface to the IDology API. Verify people's identities easily!}
   s.email = %q{info@collectiveidea.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -29,23 +29,13 @@ Gem::Specification.new do |s|
      "lib/idology_test_helper.rb",
      "lib/iq_challenge_result.rb",
      "lib/iq_result.rb",
-     "lib/log/.gitignore",
      "lib/qualifier.rb",
      "lib/question.rb",
-     "lib/request/challenge_questions_request.rb",
-     "lib/request/challenge_verification_request.rb",
-     "lib/request/request.rb",
-     "lib/request/search_request.rb",
-     "lib/request/verification_questions_request.rb",
-     "lib/request/verification_request.rb",
      "lib/response.rb",
      "lib/result.rb",
-     "lib/service.rb",
      "lib/subject.rb",
      "lib/summary_result.rb",
-     "spec/api_request_spec.rb",
      "spec/api_response_spec.rb",
-     "spec/base_spec.rb",
      "spec/fixtures/1_answer_incorrect_response.xml",
      "spec/fixtures/2_answers_incorrect_response.xml",
      "spec/fixtures/3_answers_incorrect_response.xml",
@@ -70,7 +60,8 @@ Gem::Specification.new do |s|
      "spec/fixtures/verification_timeout_response.xml",
      "spec/response_spec.rb",
      "spec/responses/no_address.xml",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/subject_spec.rb"
   ]
   s.homepage = %q{http://github.com/collectiveidea/idology}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -78,11 +69,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Ruby interface to the IDology API}
   s.test_files = [
-    "spec/api_request_spec.rb",
-     "spec/api_response_spec.rb",
-     "spec/base_spec.rb",
+    "spec/api_response_spec.rb",
      "spec/response_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/subject_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
