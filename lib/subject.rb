@@ -11,7 +11,8 @@ module IDology
     Paths = {
       :search => '/idiq.svc',
       :questions => '/idliveq.svc',
-      :answers => '/idliveq-answers.svc'
+      :answers => '/idliveq-answers.svc',
+      :challenge_questions => '/idliveq-challenge.svc'
     }
 
     attr_accessor *SearchAttributes
@@ -57,13 +58,12 @@ module IDology
     end
 
     def get_challenge_questions
-      response = self.api_service.get_challenge_questions(self)
+      # get_challenge_questions is an IDology ExpectID Challenge API call - given a valid idNumber from an ExpectID IQ question
+      # and response process, will return questions to further verify the subject
+      response = post(:challenge_questions)
       self.challenge_questions = response.questions
-
-      return true
-
-    rescue Exception
-      return false
+      
+      response
     end
 
     def submit_challenge_answers

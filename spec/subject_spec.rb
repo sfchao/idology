@@ -85,4 +85,20 @@ describe Subject do
       @subject.verified.should be_true
     end
   end
+  
+  describe 'get_challenge_questions' do
+    before do
+      fake_idology(:challenge_questions, 'challenge_questions_response')
+      @subject = Subject.new
+      @result = @subject.get_challenge_questions
+    end
+    
+    it_should_behave_like "Any Request"
+    
+    it "should set the challenge questions" do
+      q = @subject.challenge_questions.detect{|q| q.prompt == 'Which street goes with your address number 840?'}
+      q.should_not be_blank
+      q.answers.should == ['ROBBIE VW', 'LUBICH DR', 'VICTOR WAY', 'VARSITY CT', 'VAQUERO DR', 'None of the above']
+    end
+  end
 end

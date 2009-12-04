@@ -30,29 +30,6 @@ describe Request do
   end
 end
 
-describe ChallengeQuestionsRequest do
-
-  include RequestSpecHelper
-
-  before(:each) do
-    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
-    @challenge_questions_request = ChallengeQuestionsRequest.new
-  end
-
-  it "should initialze with a url" do
-    @challenge_questions_request.url.should eql('/idliveq-challenge.svc')
-  end
-
-  it "should be able to set its own data given a subject" do
-    @challenge_questions_request.data.should be_nil
-    @challenge_questions_request.set_data(test_subject)
-    @challenge_questions_request.data[:username].should eql("test_username")
-    @challenge_questions_request.data[:password].should eql("test_password")
-    @challenge_questions_request.data[:idNumber].should eql(12345)
-  end
-
-end
-
 describe ChallengeVerificationRequest do
 
   include RequestSpecHelper

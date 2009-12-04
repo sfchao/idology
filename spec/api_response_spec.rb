@@ -207,7 +207,7 @@ describe Response do
       q_response = parse_response('challenge_questions_response')
       q_response.result.key.should eql("result.match")
       q_response.result.message.should eql("Pass")
-      q_response.id.should eql(5444900)
+      q_response.id.should eql(5342889)
       q_response.questions.should_not be_empty
       q_response.questions.size.should eql(2) # only two questions sent back for challenge
     end
