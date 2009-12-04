@@ -4,9 +4,8 @@ module IDology
   module TestHelper
     
     def fake_idology(request_type, response_name)
-      request = request_type.new
       FakeWeb.register_uri(:post, 
-        "#{Service.base_uri}#{request.url}", 
+        "#{Subject.base_uri}#{Subject::Paths[request_type]}", 
         :body => idology_response_path(response_name))
     end
 

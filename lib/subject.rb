@@ -1,7 +1,20 @@
 module IDology
   class Subject
-    attr_accessor :firstName, :lastName, :address, :city, :state, :zip, :ssnLast4, :dobMonth, :dobYear, :userID
-    attr_accessor :idNumber, :api_service, :qualifiers
+    include HTTParty
+    base_uri 'https://web.idologylive.com/api'
+    # pem File.read(File.dirname(__FILE__) + '/certs/cacert.pem')
+    parser lambda{|r| IDology::Response.parse(r)}
+
+    SearchAttributes = [:firstName, :lastName, :address, :city, :state, :zip, :ssnLast4, :dobMonth, :dobYear]
+    CommonAttributes = [:idNumber, :uid]
+
+    Paths = {
+      :search => '/idiq.svc'
+    }
+
+    attr_accessor *SearchAttributes
+    attr_accessor *CommonAttributes
+    attr_accessor :api_service, :qualifiers
     attr_accessor :verification_questions, :eligible_for_verification, :verified, :challenge
     attr_accessor :challenge_questions
 
@@ -13,19 +26,20 @@ module IDology
       data.each {|key, value| self.send "#{key}=", value } if data
     end
 
-    def locate
-      response = self.api_service.locate(self)
+    def id
+      idNumber
+    end
 
+    def locate
+      response = post(:search, SearchAttributes)
+      
       self.idNumber = response.id
       self.eligible_for_verification = response.eligible_for_verification?
 
       # we must track any qualifiers that come back
       self.qualifiers = response.qualifiers
-      
-      return true
 
-    rescue Exception
-      return false
+      response.result && response.result.match?
     end
 
     def get_questions
@@ -136,6 +150,19 @@ module IDology
 
       return "\n"
     end
+
+private
+
+  def post(url, attributes)
+    params = {:username => IDology[:username],
+      :password => IDology[:password]}
+      
+    (attributes | CommonAttributes).each do |key|
+      params[key] = self.send(key) unless self.send(key).blank?
+    end
+    
+    Subject.post(Paths[url], :body => params)
+  end
 
   end
 end

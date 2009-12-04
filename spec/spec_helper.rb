@@ -26,7 +26,7 @@ module RequestSpecHelper
         :ssnLast4 => 1234,
         :dobMonth => 1,
         :dobYear => 1980,
-        :userID => 1,
+        :uid => 1,
       }
     )
 
@@ -123,6 +123,7 @@ module RequestSpecHelper
 end
 
 include IDology::TestHelper
+FakeWeb.allow_net_connect = false
 
 def load_response(name)
   load_idology_response(name)

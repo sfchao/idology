@@ -5,22 +5,7 @@ module IDology
     # pem File.read(File.dirname(__FILE__) + '/certs/cacert.pem')
     parser lambda{|r| IDology::Response.parse(r)}
     
-    attr_accessor :api_search_response, :api_question_response, :api_verification_response, :api_challenge_question_response, :api_challenge_verification_response  
-
-    def locate(subject)
-      # locate is an IDology ExpectID API call - only checks to see if a person is available in the system
-      # if available, further API calls can be made to verify the person's identity via ExpectID IQ questions
-
-      # new SearchRequest Object
-      search_request = SearchRequest.new
-
-      # assemble the data in a hash for the POST
-      search_request.set_data(subject)
-
-      # make the call
-      response = Service.post(search_request.url, :body => search_request.data)
-      self.api_search_response = response
-    end
+    attr_accessor :api_question_response, :api_verification_response, :api_challenge_question_response, :api_challenge_verification_response  
 
     def get_questions(subject)
       # get_questions is an IDology ExpectID IQ API call - which given a valid idNumber from an ExpectID API call

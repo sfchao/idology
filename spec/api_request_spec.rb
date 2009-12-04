@@ -30,37 +30,6 @@ describe Request do
   end
 end
 
-describe SearchRequest do
-
-  include RequestSpecHelper
-
-  before(:each) do
-    IDology.load_config File.dirname(__FILE__) + "/../spec/fixtures/sample_config.yml"
-    @search_request = SearchRequest.new
-  end
-
-  it "should initialize with a url" do
-    @search_request.url.should eql('/idiq.svc')
-  end
-
-  it "should be able to set its own data given a subject" do
-    @search_request.data.should be_nil
-    @search_request.set_data(test_subject)
-    @search_request.data[:username].should eql("test_username")
-    @search_request.data[:password].should eql("test_password")
-    @search_request.data[:firstName].should eql("Test")
-    @search_request.data[:lastName].should eql("Person")
-    @search_request.data[:address].should eql("123 Main St")
-    @search_request.data[:city].should eql("New York")
-    @search_request.data[:state].should eql("NY")
-    @search_request.data[:zip].should eql(10001)
-    @search_request.data[:ssnLast4].should eql(1234)
-    @search_request.data[:dobMonth].should eql(1)
-    @search_request.data[:dobYear].should eql(1980)
-    @search_request.data[:uid].should eql(1)
-  end
-end
-
 describe VerificationQuestionsRequest do
 
   include RequestSpecHelper
