@@ -51,4 +51,15 @@ describe Response do
       @response.iq_result.message.should == 'Two Incorrect Answers'
     end
   end
+  
+  describe "with velocity warnings" do
+    before do
+      @response = parse_response('velocity_warning')
+    end
+    
+    it "should set the IQ result" do
+      @response.velocity_results.should_not be_nil
+      @response.velocity_results.size.should == 2
+    end
+  end
 end
