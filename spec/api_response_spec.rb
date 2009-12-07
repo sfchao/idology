@@ -35,62 +35,6 @@ describe Response do
       search.eligible_for_verification?.should be_false
     end
 
-    it "should not be eligible_for_verification? if the response qualifiers note 'Single Address in File'" do
-      search = parse_response('match_found_single_address')
-      search.id.should eql(5922430)
-      search.qualifiers.map(&:key).should include("resultcode.single.address")
-      search.qualifiers.detect{|q| q.key == 'resultcode.single.address'}.message.should eql("Single Address in File")
-      search.eligible_for_verification?.should be_false
-    end
-
-    it "should not be eligible_for_verification? if the response qualifiers note 'SSN4 Does Not Match'" do
-      search = parse_response('match_found_ssn_does_not_match')
-      search.id.should eql(5922430)
-      search.qualifiers.map(&:key).should include("resultcode.ssn.does.not.match")
-      search.qualifiers.detect{|q| q.key == 'resultcode.ssn.does.not.match'}.message.should eql("SSN4 Does Not Match")
-      search.eligible_for_verification?.should be_false
-    end
-
-    it "should not be eligible_for_verification? if the response qualifiers note 'SSN Is Invalid'" do
-      search = parse_response('match_found_ssn_invalid')
-      search.id.should eql(5922430)
-      search.qualifiers.map(&:key).should include("resultcode.ssn.invalid")
-      search.qualifiers.detect{|q| q.key == 'resultcode.ssn.invalid'}.message.should eql("SSN Is Invalid")
-      search.eligible_for_verification?.should be_false
-    end
-
-    it "should not be eligible_for_verification? if the response qualifiers note 'SSN Issued Prior to DOB'" do
-      search = parse_response('match_found_ssn_issued_prior_to_dob')
-      search.id.should eql(5922430)
-      search.qualifiers.map(&:key).should include("resultcode.ssn.issued.prior.to.dob")
-      search.qualifiers.detect{|q| q.key == 'resultcode.ssn.issued.prior.to.dob'}.message.should eql("SSN Issued Prior to DOB")
-      search.eligible_for_verification?.should be_false
-    end
-
-    it "should not be eligible_for_verification? if the response qualifiers note 'SSN unavailable'" do
-      search = parse_response('match_found_ssn_unavailable')
-      search.id.should eql(5922430)
-      search.qualifiers.map(&:key).should include("resultcode.ssn.not.available")
-      search.qualifiers.detect{|q| q.key == 'resultcode.ssn.not.available'}.message.should eql("SSN unavailable")
-      search.eligible_for_verification?.should be_false
-    end
-
-    it "should not be eligible_for_verification? if the response qualifiers note 'Subject is Deceased'" do
-      search = parse_response('match_found_subject_deceased')
-      search.id.should eql(5922430)
-      search.qualifiers.map(&:key).should include("resultcode.subject.deceased")
-      search.qualifiers.detect{|q| q.key == 'resultcode.subject.deceased'}.message.should eql("Subject is Deceased")
-      search.eligible_for_verification?.should be_false
-    end
-
-  #  it "should not be eligible_for_verification? if the response qualifiers note 'Thin File'" do
-  #    search = parse_response('match_found_thin_file_response')
-  #    search.id.should eql(5922430)
-  #    search.qualifiers.map(&:key) include("resultcode.thin.file")
-  #    search.qualifiers.detect{|q| q.key == 'resultcode.thin.file'}.message.should eql("Thin File")
-  #    search.eligible_for_verification?.should be_false
-  #  end
-
   end
 
   describe 'verification questions response' do

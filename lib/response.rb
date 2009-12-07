@@ -18,22 +18,11 @@ module IDology
     has_many :velocity_results, IDology::VelocityResult
     
     def eligible_for_verification?
-      result && result.match? && eligible_for_questions && !flagged_qualifier?
+      result && result.match? && eligible_for_questions
     end
     
     def verified?
       [iq_result, iq_challenge_result].compact.all?(&:verified?)
     end
-
-  private
-    def flagged_qualifier?
-      # these qualifier messages mean the subject is cannot be asked questions
-      # they come from the Admin section of the IDology account, and can be changed if needed
-
-      flagged = ["Subject is Deceased", "SSN unavailable", "SSN4 Does Not Match", "SSN Issued Prior to DOB", "SSN Is Invalid", "Single Address in File"]
-
-      self.qualifiers.any?{|qualifier| flagged.include?(qualifier.message)}
-    end
-    
   end
 end
