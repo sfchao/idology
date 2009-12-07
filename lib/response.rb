@@ -24,13 +24,6 @@ module IDology
       [iq_result, iq_challenge_result].compact.all?(&:verified?)
     end
 
-    def challenge?
-      # the logic for challenge questions is not relayed via the API, so we must set the logic here
-
-      # do we need to ask 2 follow-up challenge questions? - only when 1/3 questions were correct
-      iq_result.key == 'result.questions.2.incorrect'
-    end
-    
   private
     def flagged_qualifier?
       # these qualifier messages mean the subject is cannot be asked questions

@@ -172,7 +172,6 @@ describe Response do
       v_response.iq_result.key.should eql("result.questions.0.incorrect")
       v_response.iq_result.message.should eql("All Answers Correct")
       v_response.should be_verified
-      v_response.challenge?.should be_false
     end
 
     it "should be able to handle a 1 answer incorrect response" do
@@ -180,7 +179,6 @@ describe Response do
       v_response.iq_result.key.should eql("result.questions.1.incorrect")
       v_response.iq_result.message.should eql("One Incorrect Answer")
       v_response.should be_verified
-      v_response.challenge?.should be_false
     end
 
     it "should be able to handle a 2 answers incorrect response" do
@@ -188,7 +186,6 @@ describe Response do
       v_response.iq_result.key.should eql("result.questions.2.incorrect")
       v_response.iq_result.message.should eql("Two Incorrect Answers")
       v_response.should be_verified
-      v_response.challenge?.should be_true
     end
 
     it "should be able to handle a 3 answers incorrect response" do
@@ -196,7 +193,6 @@ describe Response do
       v_response.iq_result.key.should eql("result.questions.3.incorrect")
       v_response.iq_result.message.should eql("Three Incorrect Answers")
       v_response.should_not be_verified
-      v_response.challenge?.should be_false
     end
 
   end
