@@ -18,7 +18,7 @@ module IDology
     has_many :velocity_results, IDology::VelocityResult
     
     def eligible_for_verification?
-      result && result.match? && eligible_for_questions
+      result && result.match? && (eligible_for_questions || questions)
     end
     
     def verified?
