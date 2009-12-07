@@ -5,27 +5,12 @@ module IDology
     element :key, String
     element :message, String
     
+    def incorrect
+      key =~ /result\.challenge\.(\d)\.incorrect/ ? $1.to_i : nil
+    end
+
     def verified?
-      case key
-      when "error"
-        # if there are any errors, fail right away
-        return false
-      when "result.timeout"
-        # timeouts fail right away
-        return false
-      when "result.challenge.0.incorrect"
-        # all correct passes
-        return true
-      when "result.challenge.1.incorrect"
-        # one incorrect answer fails
-        return false
-      when "result.challenge.2.incorrect"
-        # two incorrect passes, but we will challenge
-        return false
-      else
-        # fail by default
-        return false
-      end
+      incorrect == 0
     end
   end
 end
