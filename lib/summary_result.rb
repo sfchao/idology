@@ -5,5 +5,9 @@ module IDology
     
     element :key, String
     element :message, String
+    
+    def success?
+      key == 'id.success'
+    end
   end
 end

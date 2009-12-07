@@ -46,7 +46,7 @@ describe Subject do
       it_should_behave_like "Any Request"
       
       it "should know if the subject is eligible for verification questions" do
-        @subject.eligible_for_verification.should be_true
+        @subject.should be_eligible_for_verification
       end
     end
     
@@ -69,7 +69,7 @@ describe Subject do
     it_should_behave_like "Any Request"
     
     it "should set the verification questions" do
-      q = @subject.verification_questions.detect{|q| q.prompt == 'With which name are you associated?'}
+      q = @subject.questions.detect{|q| q.prompt == 'With which name are you associated?'}
       q.should_not be_blank
       q.answers.should == ['ENDO', 'ENRIQUEZ', 'EATON', 'ECHOLS', 'EPPS', 'None of the above']
     end
@@ -87,11 +87,7 @@ describe Subject do
     it_should_behave_like "Any Request"
     
     it "should set the verified flag" do
-      @subject.verified.should be_true
-    end
-    
-    it "should set the challenge flag" do
-      @subject.challenge.should be_false
+      @subject.should be_verified
     end
   end
   
@@ -105,7 +101,7 @@ describe Subject do
     it_should_behave_like "Any Request"
     
     it "should set the challenge questions" do
-      q = @subject.challenge_questions.detect{|q| q.prompt == 'Which street goes with your address number 840?'}
+      q = @subject.questions.detect{|q| q.prompt == 'Which street goes with your address number 840?'}
       q.should_not be_blank
       q.answers.should == ['ROBBIE VW', 'LUBICH DR', 'VICTOR WAY', 'VARSITY CT', 'VAQUERO DR', 'None of the above']
     end
@@ -123,7 +119,7 @@ describe Subject do
     it_should_behave_like "Any Request"
     
     it "should set the verified flag" do
-      @subject.verified.should be_true
+      @subject.should be_verified
     end
   end
 end

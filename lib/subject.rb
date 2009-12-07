@@ -18,7 +18,7 @@ module IDology
 
     attr_accessor *SearchAttributes
     attr_accessor *CommonAttributes
-    attr_accessor :qualifiers, :verification_questions, :eligible_for_verification, :verified, :challenge, :challenge_questions
+    attr_accessor :response, :qualifiers, :verification_questions, :eligible_for_verification, :verified, :challenge, :challenge_questions
 
     def initialize(data = {})
       self.verified = self.challenge = self.eligible_for_verification = false
@@ -26,10 +26,29 @@ module IDology
 
       data.each {|key, value| self.send "#{key}=", value }
     end
+    
+    def idNumber
+      @idNumber.blank? && response ? response.id : @idNumber
+    end
+    
+    def eligible_for_verification?
+      response.eligible_for_verification?
+    end
+    
+    def verified?
+      response.verified?
+    end
+    
+    def questions
+      response.questions
+    end
+    
+    def qualifiers
+      response.qualifiers
+    end
 
     def locate
-      response = post(:search, SearchAttributes)
-      
+      post(:search, SearchAttributes)
       response.result && response.result.match? ? response : false
     end
 
@@ -41,39 +60,17 @@ module IDology
     end
 
     def submit_answers
-      answers = {}
-      verification_questions.each_with_index do |question, index|
-        answers["question#{index}Type"] = question.type 
-        answers["question#{index}Answer"] = question.chosen_answer
-      end
-      
-      response = post(:answers, [], answers)
-      
-      self.verified = response.verified?
-      self.challenge = response.challenge?
-
-      response
+      post(:answers, [], answer_params)
     end
 
     def get_challenge_questions
       # get_challenge_questions is an IDology ExpectID Challenge API call - given a valid idNumber from an ExpectID IQ question
       # and response process, will return questions to further verify the subject
-      response = post(:challenge_questions)
-      self.challenge_questions = response.questions
-      
-      response
+      post(:challenge_questions)      
     end
 
     def submit_challenge_answers
-      answers = {}
-      challenge_questions.each_with_index do |question, index|
-        answers["question#{index}Type"] = question.type 
-        answers["question#{index}Answer"] = question.chosen_answer
-      end
-
-      response = post(:challenge_answers, [], answers)
-      self.verified = response.verified?
-      response
+      post(:challenge_answers, [], answer_params)
     end
 
   private
@@ -89,19 +86,16 @@ module IDology
         data[key] = self.send(key) unless self.send(key).blank?
       end
     
-      response = Subject.post(Paths[url], :body => data)
-    
-      copy_from_response response
-      response
+      self.response = Subject.post(Paths[url], :body => data)    
     end
-
-    def copy_from_response(response)
-      self.idNumber = response.id
-      self.eligible_for_verification = response.eligible_for_verification?
-
-      # we must track any qualifiers that come back
-      self.qualifiers = response.qualifiers
-      self.verification_questions = response.questions
+    
+    def answer_params
+      answers = {}
+      questions.each_with_index do |question, index|
+        answers["question#{index}Type"] = question.type 
+        answers["question#{index}Answer"] = question.chosen_answer
+      end
+      answers
     end
   end
 end
