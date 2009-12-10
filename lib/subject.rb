@@ -35,6 +35,10 @@ module IDology
       response.eligible_for_verification?
     end
     
+    def identified?
+      response.identified?
+    end
+    
     def verified?
       response.verified?
     end
@@ -49,7 +53,7 @@ module IDology
 
     def locate
       post(:search, SearchAttributes)
-      response.result && response.result.match? ? response : false
+      identified? ? response : false
     end
 
     def get_questions

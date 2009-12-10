@@ -24,5 +24,9 @@ module IDology
     def verified?
       [iq_result, iq_challenge_result].compact.all?(&:verified?)
     end
+    
+    def identified?
+      IDology[:summary_results] ? summary_result.success? : result.match?
+    end
   end
 end

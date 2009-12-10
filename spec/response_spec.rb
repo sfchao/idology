@@ -11,6 +11,26 @@ describe Response do
     end
   end
   
+  describe "identifying a match" do 
+    before do
+      @response = parse_response('match_found_response')
+    end
+    
+    describe "when using summary results" do
+      it "should not be identified" do
+        IDology[:summary_results] = true
+        @response.should_not be_identified
+      end
+    end
+    
+    describe "when not using summary results" do
+      it "should be identified" do
+        IDology[:summary_results] = false
+        @response.should be_identified
+      end
+    end
+  end
+  
   describe "with questions" do
     before do
       @response = parse_response('questions_response')

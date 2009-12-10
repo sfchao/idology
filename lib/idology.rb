@@ -17,7 +17,7 @@ require File.dirname(__FILE__) + "/response"
 
 module IDology
   def self.config
-    @config ||= {}
+    @config ||= {:summary_results => true}
   end
   
   def self.[](key)
