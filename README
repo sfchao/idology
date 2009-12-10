@@ -9,6 +9,7 @@ Simply run:
 
 You must have a valid IDology account to test or use this API library.
 
+
 == ID Verification via IDology
 
 Assuming you have a local proxy setup to the development server - and the development server's IP is authorized to access the IDology API - here is a curl command to test whether or not the API is working correctly. In this example, the socks v5 proxy is using 'ssh -D localhost:1080' to setup a temporary proxy between the development machine and the development server. Note that the username / password must be correct.
@@ -16,7 +17,6 @@ Assuming you have a local proxy setup to the development server - and the develo
 This curl command will perform a search for 'Mickey Mouse' - a valid test record in the IDology system
 
 curl -v --socks http://127.0.0.1:1080 -d username=test -d password=test -d firstName=mickey -d lastName=mouse -d address='15 MIDLAND AVE APT' -d city=paramus -d state=NJ -d zip=07652 https://web.idologylive.com/api/idiq.svc
-
 
 == Configuration
 
@@ -38,6 +38,45 @@ Or, set the username and password manually:
 
 IDology[:username] = 'user'
 IDology[:password] = 'pass'
+
+== Summary Results
+
+IDology returns both standard results and "summary results", which are configurable in the admin. If you use summary results (default & recommended), it will use those for any responses. Example: you can set some qualifiers to flag a failure in the summary results, while the standard result will be a match.
+
+If you'd like to turn off summary results, set:
+
+IDology[:summary_results] = false
+
+or put summary_results: in your config.yml.
+
+
+== Proxies
+
+Because IDology requires you to specify your IP addresses, you can run into issues in development because you can't connect when other machines. An easy way around is to setup a SOCKS proxy to a server that is in the IP whitelist.
+
+Install the socksify gem:
+
+  gem install socksify
+
+Add this to your code (Rails users, put this in an initializer. Non-Rails users, remove the if statement):
+
+  IDology[:username] = 'user'
+  IDology[:password] = 'pass'
+
+  # Use a SOCKS proxy in development for IDology
+  # to enable the proxy, run:
+  # ssh -NvD 8080 user@servername
+
+  if Rails.env.development?
+    require 'socksify'
+    TCPSocket::socks_server = "127.0.0.1"
+    TCPSocket::socks_port = 8080
+  end
+
+Then, create the socks proxy by running this:
+
+ssh -NvD 8080 user@servername
+
 
 == Tests
 
