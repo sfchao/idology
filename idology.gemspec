@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
-  s.date = %q{2009-12-07}
+  s.date = %q{2009-12-10}
   s.description = %q{Ruby interface to the IDology API. Verify people's identities easily!}
   s.email = %q{info@collectiveidea.com}
   s.extra_rdoc_files = [
@@ -52,6 +52,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/match_found_ssn_issued_prior_to_dob.xml",
      "spec/fixtures/match_found_ssn_unavailable.xml",
      "spec/fixtures/match_found_subject_deceased.xml",
+     "spec/fixtures/match_found_success.xml",
      "spec/fixtures/match_found_thin_file.xml",
      "spec/fixtures/no_match_response.xml",
      "spec/fixtures/one_answer_incorrect_challenge_response.xml",
@@ -61,6 +62,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/unknown_response.xml",
      "spec/fixtures/velocity_warning.xml",
      "spec/fixtures/verification_timeout_response.xml",
+     "spec/idology_spec.rb",
      "spec/response_spec.rb",
      "spec/responses/no_address.xml",
      "spec/spec_helper.rb",
@@ -73,6 +75,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Ruby interface to the IDology API}
   s.test_files = [
     "spec/api_response_spec.rb",
+     "spec/idology_spec.rb",
      "spec/response_spec.rb",
      "spec/spec_helper.rb",
      "spec/subject_spec.rb"
