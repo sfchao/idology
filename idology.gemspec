@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{idology}
-  s.version = "1.3.0"
+  s.version = "1.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
-  s.date = %q{2009-12-10}
+  s.date = %q{2009-12-14}
   s.description = %q{Ruby interface to the IDology API. Verify people's identities easily!}
   s.email = %q{info@collectiveidea.com}
   s.extra_rdoc_files = [
@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/1_answer_incorrect_response.xml",
      "spec/fixtures/2_answers_incorrect_response.xml",
      "spec/fixtures/3_answers_incorrect_response.xml",
+     "spec/fixtures/all_answers_correct_challenge_questions.xml",
      "spec/fixtures/all_answers_correct_challenge_response.xml",
      "spec/fixtures/all_answers_correct_response.xml",
      "spec/fixtures/challenge_questions_response.xml",
