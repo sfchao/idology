@@ -23,6 +23,7 @@ describe Subject do
     FakeWeb.clean_registry
     IDology[:username] = 'fake'
     IDology[:password] = 'fake'
+    IDology[:summary_results] = false
   end
   
   describe "locate" do
