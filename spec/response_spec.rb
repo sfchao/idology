@@ -82,4 +82,26 @@ describe Response do
       @response.velocity_results.size.should == 2
     end
   end
+  
+  describe "with an error" do 
+    before do
+      @response = parse_response('error_response')
+    end
+    
+    it "should have an error" do
+      @response.should be_error
+    end
+    
+    it "should not be identified" do
+      @response.should_not be_identified
+    end
+    
+    it "should not be verified" do
+      @response.should_not be_verified
+    end
+    
+    it "should not be eligible for verification" do
+      @response.should_not be_eligible_for_verification
+    end
+  end
 end

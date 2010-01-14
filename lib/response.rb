@@ -18,15 +18,19 @@ module IDology
     has_many :velocity_results, IDology::VelocityResult
     
     def eligible_for_verification?
-      result && result.match? && (eligible_for_questions || questions)
+      !error? && result && result.match? && (eligible_for_questions || questions)
     end
     
     def verified?
-      [iq_result, iq_challenge_result].compact.all?(&:verified?)
+      !error? && [iq_result, iq_challenge_result].compact.all?(&:verified?)
     end
     
     def identified?
-      IDology[:summary_results] ? summary_result.success? : result.match?
+      !error? && (IDology[:summary_results] ? summary_result.success? : result.match?)
+    end
+    
+    def error?
+      ![error, iq_error].compact.empty?
     end
   end
 end
