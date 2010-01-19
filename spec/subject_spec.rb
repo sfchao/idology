@@ -29,12 +29,12 @@ describe Subject do
   describe "locate" do
     it "should error if username is not set" do
       IDology[:username] = ''
-      lambda { Subject.new.locate }.should raise_error
+      lambda { Subject.new.locate }.should raise_error(IDology::Error)
     end
 
     it "should error if password is not set" do
       IDology[:password] = ''
-      lambda { Subject.new.locate }.should raise_error
+      lambda { Subject.new.locate }.should raise_error(IDology::Error)
     end
     
     describe "with a match" do
@@ -123,4 +123,29 @@ describe Subject do
       @subject.should be_verified
     end
   end
+  
+  describe 'errors' do
+    before do
+      fake_idology(:search, 'error_response')
+      @subject = Subject.new
+    end
+    
+    describe 'from IDology' do    
+      it "should raise any errors received from IDology" do
+        lambda{@subject.locate}.should raise_error(IDology::Error)
+      end
+    end
+    
+    describe 'from HTTP' do
+      it 'should catch Timeout::Error and re-raise' do
+        Subject.stub(:post).and_raise(Timeout::Error)
+        lambda{@subject.locate}.should raise_error(IDology::Error)
+      end
+      
+      it 'should catch Net::HTTPError and re-raise' do
+        Subject.stub(:post).and_raise(Net::HTTPError.new('fake', 'fake'))
+        lambda{@subject.locate}.should raise_error(IDology::Error)
+      end
+    end
+  end  
 end

@@ -29,8 +29,13 @@ module IDology
       !error? && (IDology[:summary_results] ? summary_result.success? : result.match?)
     end
     
-    def error?
-      ![error, iq_error].compact.empty?
+    def errors?
+      ![failed, error, iq_error].compact.empty?
+    end
+    alias_method :error?, :errors?
+    
+    def errors
+      [failed, error, iq_error].compact.map(&:to_s).join(',')
     end
   end
 end

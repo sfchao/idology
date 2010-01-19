@@ -80,8 +80,8 @@ module IDology
   private
 
     def post(url, attributes = [], data = {})
-      raise "IDology username is not set." if IDology[:username].blank?
-      raise "IDology password is not set." if IDology[:password].blank?
+      raise IDology::Error, "IDology username is not set." if IDology[:username].blank?
+      raise IDology::Error, "IDology password is not set." if IDology[:password].blank?
       
       data.merge!(:username => IDology[:username],
         :password => IDology[:password])
@@ -91,6 +91,12 @@ module IDology
       end
     
       self.response = Subject.post(Paths[url], :body => data)    
+              
+      raise IDology::Error, self.response.errors if self.response.errors?
+      
+      self.response
+    rescue Timeout::Error, Net::HTTPError => e
+      raise IDology::Error, e.message
     end
     
     def answer_params

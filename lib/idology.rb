@@ -16,6 +16,9 @@ require File.dirname(__FILE__) + "/velocity_result"
 require File.dirname(__FILE__) + "/response"
 
 module IDology
+  class Error < Exception
+  end
+  
   def self.config
     @config ||= {:summary_results => true}
   end
