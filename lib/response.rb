@@ -17,8 +17,13 @@ module IDology
     has_many :questions, IDology::Question
     has_many :velocity_results, IDology::VelocityResult
     
+    # A helper method as this can be an element or in the iq_error
+    def ineligible_for_questions?
+      eligible_for_questions == false || (iq_error && %w(id.not.eligible.for.questions result.questions.no.data).include?(iq_error.key))
+    end
+    
     def eligible_for_verification?
-      !error? && result && result.match? && (eligible_for_questions || questions)
+      !error? && result && result.match? && (!ineligible_for_questions? || questions)
     end
     
     def verified?
@@ -30,12 +35,12 @@ module IDology
     end
     
     def errors?
-      ![failed, error, iq_error].compact.empty?
+      ![failed, error].compact.empty?
     end
     alias_method :error?, :errors?
     
     def errors
-      [failed, error, iq_error].compact.map(&:to_s).join(',')
+      [failed, error].compact.map(&:to_s).join(',')
     end
   end
 end
