@@ -92,6 +92,26 @@ describe Subject do
     end
   end
   
+  describe 'submit_answers incomplete' do
+    before do
+      fake_idology(:questions, 'questions_response')      
+      fake_idology(:answers, 'incomplete_answers_response')
+      @subject = Subject.new
+      @subject.get_questions
+      @result = @subject.submit_answers
+    end
+    
+    it_should_behave_like "Any Request"
+    
+    it "should set the verified flag" do
+      @subject.should_not be_verified
+    end
+    
+    it "should raise an error when checking the incorrect answers" do
+      pending
+    end
+  end
+  
   describe 'get_challenge_questions' do
     before do
       fake_idology(:challenge_questions, 'challenge_questions_response')
