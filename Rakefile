@@ -12,7 +12,7 @@ begin
     gem.authors = ['Phil Ripperger', 'Daniel Morrison']
     gem.add_development_dependency "rspec"
     gem.add_dependency 'happymapper', '0.3.0'
-    gem.add_dependency 'httparty', '>=0.4.5'
+    gem.add_dependency 'httparty', '>=0.5.2'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

@@ -3,7 +3,7 @@ module IDology
     include HTTParty
     base_uri 'https://web.idologylive.com/api'
     # pem File.read(File.dirname(__FILE__) + '/certs/cacert.pem')
-    parser lambda{|r| IDology::Response.parse(r.to_s)}
+    parser lambda{|r, format| IDology::Response.parse(r.to_s)}
 
     SearchAttributes = [:firstName, :lastName, :address, :city, :state, :zip, :ssnLast4, :dobMonth, :dobYear]
     CommonAttributes = [:idNumber, :uid]
