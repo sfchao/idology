@@ -104,4 +104,14 @@ describe Response do
       @response.should_not be_eligible_for_verification
     end
   end
+  
+  describe "fixtures" do
+    Dir.glob(File.dirname(__FILE__)+'/fixtures/*.xml').each do |fixture|
+      file = fixture.match(/([^\/]*)\.xml$/)[1]
+      it "#{file} should be valid" do
+        lambda{ XML::Parser.string(load_response(file)).parse }.should_not raise_error
+      end
+    end
+    
+  end
 end
