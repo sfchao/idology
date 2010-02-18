@@ -5,6 +5,7 @@ require 'idology'
 require 'spec'
 require 'spec/autorun'
 require 'idology_test_helper'
+require 'set' # for Enumerable#to_set
 
 Spec::Runner.configure do |config|
 
