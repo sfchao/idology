@@ -11,6 +11,7 @@ begin
     gem.homepage = "http://github.com/collectiveidea/idology"
     gem.authors = ['Phil Ripperger', 'Daniel Morrison']
     gem.add_development_dependency "rspec"
+    gem.add_development_dependency 'fakeweb', '1.2.8'
     gem.add_dependency 'happymapper', '0.3.0'
     gem.add_dependency 'httparty', '0.5.2'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings

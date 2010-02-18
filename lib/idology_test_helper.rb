@@ -12,6 +12,7 @@ module IDology
     def idology_response_path(name)
       file = File.expand_path(File.dirname(__FILE__)+"/../spec/fixtures/#{name}.xml")
       raise "Unknown File: #{file}" unless File.exist?(file)
+      file
     end
     
     def load_idology_response(name)
