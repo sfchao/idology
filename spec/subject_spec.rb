@@ -13,7 +13,7 @@ share_examples_for "Any Request" do
 
   it "should set any qualifiers" do
     expected = %w(resultcode.dob.does.not.match resultcode.address.does.not.match)
-    @subject.qualifiers.map(&:key).to_set.should == expected.to_set
+    @subject.qualifiers.map{|q| q.key}.to_set.should == expected.to_set
   end
 end
 

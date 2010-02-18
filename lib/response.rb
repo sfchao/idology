@@ -27,7 +27,7 @@ module IDology
     end
     
     def verified?
-      !error? && [iq_result, iq_challenge_result].compact.all?(&:verified?)
+      !error? && [iq_result, iq_challenge_result].compact.all?{|r| r.verified?}
     end
     
     def identified?
@@ -40,7 +40,7 @@ module IDology
     alias_method :error?, :errors?
     
     def errors
-      [failed, error].compact.map(&:to_s).join(',')
+      [failed, error].compact.map{|e| e.to_s}.join(',')
     end
   end
 end
