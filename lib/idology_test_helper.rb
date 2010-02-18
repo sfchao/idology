@@ -10,7 +10,8 @@ module IDology
     end
 
     def idology_response_path(name)
-      File.dirname(__FILE__)+"/../spec/fixtures/#{name}.xml"
+      file = File.expand_path(File.dirname(__FILE__)+"/../spec/fixtures/#{name}.xml")
+      raise "Unknown File: #{file}" unless File.exist?(file)
     end
     
     def load_idology_response(name)
