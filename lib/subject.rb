@@ -18,7 +18,7 @@ module IDology
 
     attr_accessor *SearchAttributes
     attr_accessor *CommonAttributes
-    attr_accessor :response, :qualifiers, :verification_questions, :eligible_for_verification, :verified, :challenge, :challenge_questions
+    attr_accessor :response, :qualifiers, :verification_questions, :eligible_for_verification, :verified, :challenge, :challenge_questions, :questions
 
     def initialize(data = {})
       self.verified = self.challenge = self.eligible_for_verification = false
@@ -44,7 +44,7 @@ module IDology
     end
     
     def questions
-      response.questions
+      @questions ||= response.questions
     end
     
     def qualifiers
