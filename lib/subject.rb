@@ -44,7 +44,9 @@ module IDology
     end
     
     def questions
-      @questions ||= response.questions
+      @questions ||= begin
+        response.questions unless response.questions.blank?
+      end
     end
     
     def qualifiers
