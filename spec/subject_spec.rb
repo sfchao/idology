@@ -60,10 +60,36 @@ describe Subject do
     
   end
   
+  describe "without an ID" do
+    before do
+      fake_idology(:search, 'match_found_response')
+      @subject = Subject.new
+      # @result = @subject.locate
+      @subject.idNumber = nil
+      @subject.questions = [Question.new]
+    end
+    
+    it "get_questions should raise an error" do
+      lambda{@subject.get_questions}.should raise_error(IDology::Error)
+    end
+    
+    it "submit_answers should raise an error" do
+      lambda{@subject.submit_answers}.should raise_error(IDology::Error)
+    end
+    
+    it "get_challenge_questions should raise an error" do
+      lambda{@subject.get_challenge_questions}.should raise_error(IDology::Error)
+    end
+    
+    it "submit_challenge_answers should raise an error" do
+      lambda{@subject.submit_challenge_answers}.should raise_error(IDology::Error)
+    end
+  end
+  
   describe 'get_questions' do
     before do
       fake_idology(:questions, 'questions_response')
-      @subject = Subject.new
+      @subject = Subject.new :idNumber => 5342889
       @result = @subject.get_questions
     end
     
@@ -80,7 +106,7 @@ describe Subject do
     before do
       fake_idology(:questions, 'questions_response')      
       fake_idology(:answers, 'all_answers_correct_response')
-      @subject = Subject.new
+      @subject = Subject.new :idNumber => 5342889
       @subject.get_questions
       @result = @subject.submit_answers
     end
@@ -96,7 +122,7 @@ describe Subject do
     before do
       fake_idology(:questions, 'questions_response')      
       fake_idology(:answers, 'incomplete_answers_response')
-      @subject = Subject.new
+      @subject = Subject.new :idNumber => 5342889
       @subject.get_questions
       @result = @subject.submit_answers
     end
@@ -115,7 +141,7 @@ describe Subject do
   describe 'get_challenge_questions' do
     before do
       fake_idology(:challenge_questions, 'challenge_questions_response')
-      @subject = Subject.new
+      @subject = Subject.new :idNumber => 5342889
       @result = @subject.get_challenge_questions
     end
     
@@ -132,7 +158,7 @@ describe Subject do
     before do
       fake_idology(:challenge_questions, 'questions_response')      
       fake_idology(:challenge_answers, 'all_answers_correct_response')
-      @subject = Subject.new
+      @subject = Subject.new :idNumber => 5342889
       @subject.get_challenge_questions
       @result = @subject.submit_challenge_answers
     end
@@ -147,7 +173,7 @@ describe Subject do
   describe 'errors' do
     before do
       fake_idology(:search, 'error_response')
-      @subject = Subject.new
+      @subject = Subject.new :idNumber => 5342889
     end
     
     describe 'from IDology' do    

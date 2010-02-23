@@ -91,9 +91,13 @@ module IDology
       (attributes | CommonAttributes).each do |key|
         data[key] = self.send(key) unless self.send(key).blank?
       end
+
+      if url != :search && data[:idNumber].blank?
+        raise IDology::Error, "idNumber can't be blank."
+      end
     
       self.response = Subject.post(Paths[url], :body => data)    
-              
+      
       raise IDology::Error, self.response.errors if self.response.errors?
       
       self.response
