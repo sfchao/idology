@@ -155,6 +155,21 @@ describe Subject do
     end
   end
   
+  describe 'timeouts' do
+    before do
+      fake_idology(:search, 'questions_response')      
+      fake_idology(:answers, 'verification_timeout_response')
+      @subject = Subject.new
+      @subject.locate
+    end
+
+    describe 'a timeout in submitting answers' do    
+      it "should raise an IDology error" do
+        lambda{@subject.submit_answers}.should raise_error(IDology::Error)
+      end
+    end
+  end
+  
   describe 'errors' do
     before do
       fake_idology(:search, 'error_response')

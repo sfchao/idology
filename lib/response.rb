@@ -34,8 +34,12 @@ module IDology
       !error? && (IDology[:summary_results] ? summary_result.success? : result.match?)
     end
     
+    def timeout?
+      [iq_result, iq_challenge_result].compact.map(&:key).include?('result.timeout')
+    end
+    
     def errors?
-      ![failed, error].compact.empty?
+      timeout? || ![failed, error].compact.empty?
     end
     alias_method :error?, :errors?
     
