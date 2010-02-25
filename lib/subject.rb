@@ -10,7 +10,6 @@ module IDology
 
     Paths = {
       :search => '/idiq.svc',
-      :questions => '/idliveq.svc',
       :answers => '/idliveq-answers.svc',
       :challenge_questions => '/idliveq-challenge.svc',
       :challenge_answers => '/idliveq-challenge-answers.svc'
@@ -56,13 +55,6 @@ module IDology
     def locate
       post(:search, SearchAttributes)
       identified? ? response : false
-    end
-
-    def get_questions
-      # get_questions is an IDology ExpectID IQ API call - which given a valid idNumber from an ExpectID API call
-      # should return questions that can be asked to verify the ID of the person in question
-
-      post(:questions)
     end
 
     def submit_answers

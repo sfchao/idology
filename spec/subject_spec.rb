@@ -39,7 +39,7 @@ describe Subject do
     
     describe "with a match" do
       before do
-        fake_idology(:search, 'match_found_response')
+        fake_idology(:search, 'questions_response')
         @subject = Subject.new
         @result = @subject.locate
       end
@@ -48,6 +48,12 @@ describe Subject do
       
       it "should know if the subject is eligible for verification questions" do
         @subject.should be_eligible_for_verification
+      end
+      
+      it "should set the verification questions" do
+        q = @subject.questions.detect{|q| q.prompt == 'With which name are you associated?'}
+        q.should_not be_blank
+        q.answers.should == ['ENDO', 'ENRIQUEZ', 'EATON', 'ECHOLS', 'EPPS', 'None of the above']
       end
     end
     
@@ -64,13 +70,8 @@ describe Subject do
     before do
       fake_idology(:search, 'match_found_response')
       @subject = Subject.new
-      # @result = @subject.locate
       @subject.idNumber = nil
       @subject.questions = [Question.new]
-    end
-    
-    it "get_questions should raise an error" do
-      lambda{@subject.get_questions}.should raise_error(IDology::Error)
     end
     
     it "submit_answers should raise an error" do
@@ -86,28 +87,12 @@ describe Subject do
     end
   end
   
-  describe 'get_questions' do
-    before do
-      fake_idology(:questions, 'questions_response')
-      @subject = Subject.new :idNumber => 5342889
-      @result = @subject.get_questions
-    end
-    
-    it_should_behave_like "Any Request"
-    
-    it "should set the verification questions" do
-      q = @subject.questions.detect{|q| q.prompt == 'With which name are you associated?'}
-      q.should_not be_blank
-      q.answers.should == ['ENDO', 'ENRIQUEZ', 'EATON', 'ECHOLS', 'EPPS', 'None of the above']
-    end
-  end
-  
   describe 'submit_answers' do
     before do
-      fake_idology(:questions, 'questions_response')      
+      fake_idology(:search, 'questions_response')      
       fake_idology(:answers, 'all_answers_correct_response')
       @subject = Subject.new :idNumber => 5342889
-      @subject.get_questions
+      @subject.locate
       @result = @subject.submit_answers
     end
     
@@ -120,10 +105,10 @@ describe Subject do
   
   describe 'submit_answers incomplete' do
     before do
-      fake_idology(:questions, 'questions_response')      
+      fake_idology(:search, 'questions_response')      
       fake_idology(:answers, 'incomplete_answers_response')
       @subject = Subject.new :idNumber => 5342889
-      @subject.get_questions
+      @subject.locate
       @result = @subject.submit_answers
     end
     
