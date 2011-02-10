@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{idology}
-  s.version = "1.9.2"
+  s.version = "1.9.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
-  s.date = %q{2010-03-01}
+  s.date = %q{2011-02-10}
   s.description = %q{Ruby interface to the IDology API. Verify people's identities easily!}
   s.email = %q{info@collectiveidea.com}
   s.extra_rdoc_files = [
@@ -56,6 +56,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/match_found_success.xml",
      "spec/fixtures/match_found_thin_file.xml",
      "spec/fixtures/no_match_response.xml",
+     "spec/fixtures/no_questions_response.xml",
      "spec/fixtures/one_answer_incorrect_challenge_response.xml",
      "spec/fixtures/questions_response.xml",
      "spec/fixtures/sample_config.yml",
@@ -72,7 +73,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/collectiveidea/idology}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Ruby interface to the IDology API}
   s.test_files = [
     "spec/api_response_spec.rb",
