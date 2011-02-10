@@ -25,29 +25,27 @@ module IDology
 
       data.each {|key, value| self.send "#{key}=", value }
     end
-    
+
     def idNumber
       @idNumber.blank? && response ? response.id : @idNumber
     end
-    
+
     def eligible_for_verification?
       response.eligible_for_verification?
     end
-    
+
     def identified?
       response.identified?
     end
-    
+
     def verified?
       response.verified?
     end
-    
+
     def questions
-      @questions ||= begin
-        response.questions unless response.questions.blank?
-      end
+      @questions ||= (response && !response.questions.empty?) ? response.questions : []
     end
-    
+
     def qualifiers
       response.qualifiers
     end
@@ -64,7 +62,7 @@ module IDology
     def get_challenge_questions
       # get_challenge_questions is an IDology ExpectID Challenge API call - given a valid idNumber from an ExpectID IQ question
       # and response process, will return questions to further verify the subject
-      post(:challenge_questions)      
+      post(:challenge_questions)
     end
 
     def submit_challenge_answers
@@ -76,10 +74,10 @@ module IDology
     def post(url, attributes = [], data = {})
       raise IDology::Error, "IDology username is not set." if IDology[:username].blank?
       raise IDology::Error, "IDology password is not set." if IDology[:password].blank?
-      
+
       data.merge!(:username => IDology[:username],
         :password => IDology[:password])
-      
+
       (attributes | CommonAttributes).each do |key|
         data[key] = self.send(key) unless self.send(key).blank?
       end
@@ -87,20 +85,20 @@ module IDology
       if url != :search && data[:idNumber].blank?
         raise IDology::Error, "idNumber can't be blank."
       end
-    
-      self.response = Subject.post(Paths[url], :body => data)    
-      
+
+      self.response = Subject.post(Paths[url], :body => data)
+
       raise IDology::Error, self.response.errors if self.response.errors?
-      
+
       self.response
     rescue Timeout::Error, Net::HTTPError => e
       raise IDology::Error, e.message
     end
-    
+
     def answer_params
       answers = {}
       questions.each_with_index do |question, index|
-        answers["question#{index + 1}Type"] = question.type 
+        answers["question#{index + 1}Type"] = question.type
         answers["question#{index + 1}Answer"] = question.chosen_answer
       end
       answers
