@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{idology}
-  s.version = "1.9.4"
+  s.version = "1.9.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Ripperger", "Daniel Morrison"]
@@ -87,7 +87,6 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<idology>, [">= 0"])
       s.add_runtime_dependency(%q<happymapper>, ["= 0.3.0"])
       s.add_runtime_dependency(%q<httparty>, ["= 0.5.2"])
       s.add_runtime_dependency(%q<jeweler>, [">= 0"])
@@ -98,7 +97,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<happymapper>, ["= 0.3.0"])
       s.add_runtime_dependency(%q<httparty>, ["= 0.5.2"])
     else
-      s.add_dependency(%q<idology>, [">= 0"])
       s.add_dependency(%q<happymapper>, ["= 0.3.0"])
       s.add_dependency(%q<httparty>, ["= 0.5.2"])
       s.add_dependency(%q<jeweler>, [">= 0"])
@@ -110,7 +108,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<httparty>, ["= 0.5.2"])
     end
   else
-    s.add_dependency(%q<idology>, [">= 0"])
     s.add_dependency(%q<happymapper>, ["= 0.3.0"])
     s.add_dependency(%q<httparty>, ["= 0.5.2"])
     s.add_dependency(%q<jeweler>, [">= 0"])

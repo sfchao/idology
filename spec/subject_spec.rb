@@ -193,5 +193,12 @@ describe Subject do
         lambda{@subject.locate}.should raise_error(IDology::Error)
       end
     end
-  end  
+  end
+
+  describe "Inovice attribute" do
+    it "should have invoice attribute" do
+      subject = Subject.new :invoice => 1234
+      subject.invoice.should == 1234
+    end
+  end
 end

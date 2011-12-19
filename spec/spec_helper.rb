@@ -18,6 +18,7 @@ module RequestSpecHelper
     subject = Subject.new(
       {
         # basic info
+        :invoice => 1234,
         :firstName => 'Test',
         :lastName => 'Person',
         :address => '123 Main St',
